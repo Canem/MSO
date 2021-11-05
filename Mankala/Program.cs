@@ -10,6 +10,10 @@ namespace Mankala
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Geef input");
+            int input = Console.Read();
+            Console.WriteLine("nummer: " + input);
+
         }
     }
 }
