@@ -24,6 +24,11 @@ namespace Mankala
                 aantalSteentjes -= aantal;
         }
 
+        public void printKuiltje()
+        {
+            Console.Write("(" + aantalSteentjes + ")");
+        }
+
         public int GetAantalSteentjes()
         {
             return aantalSteentjes;

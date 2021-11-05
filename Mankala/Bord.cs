@@ -8,11 +8,26 @@ namespace Mankala
 {
     class Bord
     {
-        Kuiltje kuiltjes;
+        Kuiltje[] kuiltjes;
 
-        public void GenereerBord(int aantalKuiltjes, int aantalSteentjes)
+        public Bord(int aantalKuiltjes, int aantalSteentjes)
         {
+            kuiltjes = new Kuiltje[aantalKuiltjes * 2];
+            for (int i = 0; i < kuiltjes.Length; i++)
+            {
+                Kuiltje kuiltje = new Speelkuiltje();
+                kuiltjes[i] = kuiltje;
+            }
+        }
 
+        public void GeefWeer()
+        {
+            Console.Write("[");
+            foreach (Kuiltje k in kuiltjes)
+            {
+                k.printKuiltje();
+            }
+            Console.WriteLine("]");
         }
     }
 }
