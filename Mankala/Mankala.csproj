@@ -43,12 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bord.cs" />
-    <Compile Include="Kuiltje.cs" />
+    <Compile Include="Bord\Bord.cs" />
+    <Compile Include="Bord\Kuiltje.cs" />
+    <Compile Include="Spel Varianten\Wari.cs" />
+    <Compile Include="Spel Varianten\Mankala.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Speelkuiltje.cs" />
+    <Compile Include="Bord\Speelkuiltje.cs" />
     <Compile Include="Spel.cs" />
+    <Compile Include="Spel Varianten\SpelVariant.cs" />
     <Compile Include="Thuiskuiltje.cs" />
   </ItemGroup>
   <ItemGroup>

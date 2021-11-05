@@ -14,7 +14,6 @@ namespace Mankala
         {
             spel = new Spel();
             SpelInitialisatie();
-
         }
 
 
@@ -37,11 +36,11 @@ namespace Mankala
             switch (variantInput)
             {
                 case 'm':
-                    Console.WriteLine("Je hebt gekozen voor Mankala");
+                    Console.WriteLine("Je hebt gekozen voor " + Mankala.naam);
                     spel.huidigeVariant = Spel.SpelVariant.Mankala;
                     return;
                 case 'w':
-                    Console.WriteLine("Je hebt gekozen voor Wari");
+                    Console.WriteLine("Je hebt gekozen voor " + Wari.naam);
                     spel.huidigeVariant = Spel.SpelVariant.Wari;
                     return;
                 default:
