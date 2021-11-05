@@ -13,8 +13,14 @@ namespace Mankala
         public enum Speler { Speler1, Speler2 }
 
         public Speler huidigeSpeler;
+        public SpelVariant huidigeVariant;
 
         //Regel[] regels;
 
+        public void InitialiseerSpel()
+        {
+            huidigeSpeler = Speler.Speler1;
+        }
+        
     }
 }
