@@ -52,5 +52,42 @@ namespace Mankala
                 Console.Write("  <---");
             Console.WriteLine();
         }
+
+        public bool Zet(Spel.Speler huidigeSpeler, int kuiltjeNummer)
+        {
+            if (IsZetValide(huidigeSpeler, kuiltjeNummer) == false)
+            {
+                return false;
+            }
+
+            Console.WriteLine("Geldige zet. Het bord wordt geupdate.");
+            return true;
+        }
+
+        protected bool IsZetValide(Spel.Speler huidigeSpeler, int kuiltjeNummer)
+        {
+            // Algemene tests.
+            if (kuiltjeNummer == 0 || kuiltjeNummer > s1Kuiltjes.Length)
+            {
+                Console.WriteLine("Kies een correct nummer dat past bij een kuiltje.");
+                return false;
+            }
+
+            // Test voor speler 1.
+            if (huidigeSpeler == Spel.Speler.Speler1 && s1Kuiltjes[kuiltjeNummer - 1].GetAantalSteentjes() == 0)
+            {
+                Console.WriteLine("Kies een kuiltje dat steentjes bevat.");
+                return false;
+            }
+
+            // Test voor speler 2.
+            if (huidigeSpeler == Spel.Speler.Speler2 && s2Kuiltjes[kuiltjeNummer - 1].GetAantalSteentjes() == 0)
+            {
+                Console.WriteLine("Kies een kuiltje dat steentjes bevat.");
+                return false;
+            }
+
+            return true;
+        }
     }
 }

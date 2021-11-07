@@ -57,7 +57,7 @@ namespace Mankala
             }
         }
 
-        protected static int VraagGetal(int lower, int upper)
+        public static int VraagGetal(int lower, int upper)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Mankala
                 return input;
             }
             catch {
-                Console.WriteLine("Ongeldig getal. Toets een correct getal in.");
+                Console.WriteLine("Ongeldige input. Toets een correct getal in.");
                 return VraagGetal(lower, upper);
             }
         }
