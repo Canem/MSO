@@ -16,18 +16,29 @@ namespace Mankala
         public Kuiltje[] s1Kuiltjes;
         public Kuiltje[] s2Kuiltjes;
 
-        public Bord(int aantalKuiltjes, int aantalSteentjes)
+        // Verzamelkuiltjes voor de Wari variant.
+        public Kuiltje s1VerzamelKuiltje;
+        public Kuiltje s2VerzamelKuiltje;
+
+        public Bord(int aantalKuiltjes, int aantalSteentjes, bool verzamelKuiltjes)
         {
+            // Maak een lijst gevuld met kuiltjes aan voor beide spelers.
             s1Kuiltjes = new Kuiltje[aantalKuiltjes];
             s2Kuiltjes = new Kuiltje[aantalKuiltjes];
-
             for (int i = 0; i < s1Kuiltjes.Length; i++)
             {
-                Kuiltje k1 = new Speelkuiltje(aantalSteentjes);
-                Kuiltje k2 = new Speelkuiltje(aantalSteentjes);
+                Kuiltje k1 = new Kuiltje(aantalSteentjes);
+                Kuiltje k2 = new Kuiltje(aantalSteentjes);
 
                 s1Kuiltjes[i] = k1;
                 s2Kuiltjes[i] = k2;
+            }
+
+            // Maak verzamelkuiltjes aan als de regels dit aangeven.
+            if (verzamelKuiltjes)
+            {
+                s1VerzamelKuiltje = new Kuiltje(0, true);
+                s2VerzamelKuiltje = new Kuiltje(0, true);
             }
         }
 
@@ -42,8 +53,13 @@ namespace Mankala
             // Print speler 2s bord.
             Console.Write("Speler 2  -  | <");
             foreach (Kuiltje k in s2Kuiltjes)
-                k.printKuiltje();
+                k.PrintKuiltje();
             Console.Write("< |");
+            if (s2VerzamelKuiltje != null)
+            {
+                Console.Write("  ");
+                s2VerzamelKuiltje.PrintKuiltje();
+            }
             if (huidigeSpeler == Spel.Speler.Speler2)
                 Console.Write("  <---");
             Console.WriteLine();
@@ -51,8 +67,13 @@ namespace Mankala
             // Print speler 1s bord.
             Console.Write("Speler 1  -  | >");
             foreach (Kuiltje k in s1Kuiltjes)
-                k.printKuiltje();
+                k.PrintKuiltje();
             Console.Write("> |");
+            if (s1VerzamelKuiltje != null)
+            {
+                Console.Write("  ");
+                s1VerzamelKuiltje.PrintKuiltje();
+            }
             if (huidigeSpeler == Spel.Speler.Speler1)
                 Console.Write("  <---");
             Console.WriteLine();

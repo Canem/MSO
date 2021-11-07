@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace Mankala
 {
-    abstract class Kuiltje
+    class Kuiltje
     {
         protected int aantalSteentjes;
+        public bool isThuisKuiltje;
+
+        public Kuiltje(int aantalSteentjes, bool isThuisKuiltje = false)
+        {
+            this.aantalSteentjes = aantalSteentjes;
+            this.isThuisKuiltje = isThuisKuiltje;
+        }
 
         public void VoegToe(int aantal)
         {
@@ -31,12 +38,22 @@ namespace Mankala
             return aantalSteentjes;
         }
 
-        public void printKuiltje()
+        public virtual void PrintKuiltje()
         {
-            if (aantalSteentjes < 10)
-                Console.Write("( " + aantalSteentjes + ")");
+            if (!isThuisKuiltje)
+            {
+                if (aantalSteentjes < 10)
+                    Console.Write("( " + aantalSteentjes + ")");
+                else
+                    Console.Write("(" + aantalSteentjes + ")");
+            }
             else
-                Console.Write("(" + aantalSteentjes + ")");
+            {
+                if (aantalSteentjes < 10)
+                    Console.Write("{ " + aantalSteentjes + "}");
+                else
+                    Console.Write("{" + aantalSteentjes + "}");
+            }
         }
 
         public int GetAantalSteentjes()

@@ -23,7 +23,7 @@ namespace Mankala
         public void InitialiseerSpel(int aantalKuiltjes, int aantalSteentjes)
         {
             huidigeSpeler = Speler.Speler1;
-            bord = new Bord(aantalKuiltjes, aantalSteentjes);
+            bord = new Bord(aantalKuiltjes, aantalSteentjes, true);
             beurtNummer = 1;
 
             Console.WriteLine("\n\n\nLaat het spel beginnen!\n");
