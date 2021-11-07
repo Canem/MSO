@@ -8,8 +8,7 @@ namespace Mankala
 {
     abstract class Kuiltje
     {
-        public int aantalSteentjes;
-        // Speler ..
+        protected int aantalSteentjes;
 
         public void VoegToe(int aantal)
         {
@@ -34,7 +33,10 @@ namespace Mankala
 
         public void printKuiltje()
         {
-            Console.Write("(" + aantalSteentjes + ")");
+            if (aantalSteentjes < 10)
+                Console.Write("( " + aantalSteentjes + ")");
+            else
+                Console.Write("(" + aantalSteentjes + ")");
         }
 
         public int GetAantalSteentjes()
