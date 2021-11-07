@@ -18,6 +18,7 @@ namespace Mankala
         protected int beurtNummer;
 
         //Regel[] regels;
+        public enum ZetResultaat {  }
 
         public void InitialiseerSpel(int aantalKuiltjes, int aantalSteentjes)
         {
@@ -36,32 +37,7 @@ namespace Mankala
             bord.PrintBord(huidigeSpeler);
 
             Console.WriteLine("\n" + huidigeSpeler + " is aan zet." + "\nKies een kuiltje.");
-            Zet();
-
-            // CheckRegels()
-
-            // if -> Beurt(), else -> verander huidige speler en Beurt()
-
-
-            // plaatsverangende code:
-            Console.WriteLine("\nLaatste steen eindigde in ...");
-            Console.WriteLine("De beurt blijft behouden voor " + huidigeSpeler + ".");
-            beurtNummer++;
-            Beurt();
-        }
-
-        public void Zet()
-        {
-            int kuiltjeNummer = Program.VraagGetal(0, 9);
-            Kuiltje laatsteKuiltje = bord.Zet(huidigeSpeler, kuiltjeNummer);
-
-            // Als de zet fout is, doe hem overnieuw.
-            if (laatsteKuiltje == null)
-            {
-                Zet();
-                return;
-            }
-                
+            Kuiltje laatsteKuiltje = Zet();
 
             // Verkrijg het kuiltjeNummer en bij welke speler het laatste kuiltje behoort.
             Speler spelerIt = Speler.Speler1;
@@ -81,7 +57,37 @@ namespace Mankala
                 }
             }
 
-            Console.WriteLine("SpelerIt: " + spelerIt + " | kuiltjeIt: " + kuiltjeIt);
+            //Console.WriteLine("SpelerIt: " + spelerIt + " | kuiltjeIt: " + kuiltjeIt);
+
+            CheckRegels(spelerIt, kuiltjeIt);
+
+            // CheckRegels()
+
+            // if -> Beurt(), else -> verander huidige speler en Beurt()
+
+
+            // plaatsverangende code:
+            Console.WriteLine("\nLaatste steen eindigde in ...");
+            Console.WriteLine("De beurt blijft behouden voor " + huidigeSpeler + ".");
+            beurtNummer++;
+            Beurt();
+        }
+
+        public Kuiltje Zet()
+        {
+            int kuiltjeNummer = Program.VraagGetal(0, 9);
+            Kuiltje laatsteKuiltje = bord.Zet(huidigeSpeler, kuiltjeNummer);
+
+            // Als de zet fout is, doe hem overnieuw.
+            if (laatsteKuiltje == null)
+                return Zet();
+            else
+                return laatsteKuiltje;
+        }
+
+        protected void CheckRegels(Speler spelerIt, int kuiltjeIt)
+        {
+
         }
         
     }
