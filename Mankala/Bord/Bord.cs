@@ -31,7 +31,7 @@ namespace Mankala
             // Print kuiltje info.
             Console.Write("Kuiltje#  -   ");
             for (int i = 0; i < s1Kuiltjes.Length; i++)
-                Console.Write(" " + i + " ");
+                Console.Write(" " + (i+1) + " ");
             Console.WriteLine();
 
             // Print speler 2s bord.

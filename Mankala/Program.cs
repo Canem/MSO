@@ -23,10 +23,10 @@ namespace Mankala
 
             InitialiseerVariant();
 
-            Console.WriteLine("Toets in als getal hoeveel kuiltjes iedere speler heeft.");
-            int aantalKuiltjes = VraagGetal();
-            Console.WriteLine("Toets in als getal hoeveel steentjes ieder kuiltje bevat.");
-            int aantalSteentjes = VraagGetal();
+            Console.WriteLine("Toets in als getal hoeveel kuiltjes iedere speler heeft. Min 1, max 9.");
+            int aantalKuiltjes = VraagGetal(1, 9);
+            Console.WriteLine("Toets in als getal hoeveel steentjes ieder kuiltje bevat. Min 1, max 9.");
+            int aantalSteentjes = VraagGetal(1, 9);
 
             spel.InitialiseerSpel(aantalKuiltjes, aantalSteentjes);
         }
@@ -57,16 +57,21 @@ namespace Mankala
             }
         }
 
-        protected static int VraagGetal()
+        protected static int VraagGetal(int lower, int upper)
         {
             try
             {
                 int input = int.Parse(Console.ReadLine());
+                if(input < lower || input > upper)
+                {
+                    Console.WriteLine("Toets een getal in binnen de marges.");
+                    return VraagGetal(lower, upper);
+                }
                 return input;
             }
             catch {
                 Console.WriteLine("Ongeldig getal. Toets een correct getal in.");
-                return VraagGetal();
+                return VraagGetal(lower, upper);
             }
         }
     }
