@@ -16,7 +16,6 @@ namespace Mankala
             SpelInitialisatie();
         }
 
-
         protected static void SpelInitialisatie()
         {
             Console.WriteLine("Welkom bij Console Mankala!" +

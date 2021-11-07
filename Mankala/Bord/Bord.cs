@@ -20,7 +20,7 @@ namespace Mankala
             }
         }
 
-        public void GeefWeer()
+        public void PrintBord()
         {
             Console.Write("[");
             foreach (Kuiltje k in kuiltjes)
