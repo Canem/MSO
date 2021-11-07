@@ -53,12 +53,35 @@ namespace Mankala
         public void Zet()
         {
             int kuiltjeNummer = Program.VraagGetal(0, 9);
-            bool checkZet = bord.Zet(huidigeSpeler, kuiltjeNummer);
+            Kuiltje laatsteKuiltje = bord.Zet(huidigeSpeler, kuiltjeNummer);
 
-            if (checkZet == false)
+            // Als de zet fout is, doe hem overnieuw.
+            if (laatsteKuiltje == null)
             {
                 Zet();
+                return;
             }
+                
+
+            // Verkrijg het kuiltjeNummer en bij welke speler het laatste kuiltje behoort.
+            Speler spelerIt = Speler.Speler1;
+            int kuiltjeIt = 0;
+
+            for (int i = 1; i <= bord.s1Kuiltjes.Length; i++)
+            {
+                if (laatsteKuiltje.Equals(bord.s1Kuiltjes[i - 1]))
+                {
+                    spelerIt = Speler.Speler1;
+                    kuiltjeIt = i;
+                }
+                else if (laatsteKuiltje.Equals(bord.s2Kuiltjes[i - 1]))
+                {
+                    spelerIt = Speler.Speler2;
+                    kuiltjeIt = i;
+                }
+            }
+
+            Console.WriteLine("SpelerIt: " + spelerIt + " | kuiltjeIt: " + kuiltjeIt);
         }
         
     }

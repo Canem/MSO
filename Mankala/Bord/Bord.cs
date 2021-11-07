@@ -58,11 +58,11 @@ namespace Mankala
             Console.WriteLine();
         }
 
-        public bool Zet(Spel.Speler huidigeSpeler, int kuiltjeNummer)
+        public Kuiltje Zet(Spel.Speler huidigeSpeler, int kuiltjeNummer)
         {
             if (IsZetValide(huidigeSpeler, kuiltjeNummer) == false)
             {
-                return false;
+                return null;
             }
 
             int huidigeSteentjes;
@@ -108,9 +108,11 @@ namespace Mankala
 
             Console.WriteLine("Geldige zet. Het bord wordt geupdate.");
 
-            // CheckLaatsteSteen();
-
-            return true;
+            // Return het laatste kuiltje.
+            if (spelerIt == Spel.Speler.Speler1)
+                return s1Kuiltjes[kuiltjeIt - 1];
+            else
+                return s2Kuiltjes[kuiltjeIt - 1];
         }
 
         protected bool IsZetValide(Spel.Speler huidigeSpeler, int kuiltjeNummer)
