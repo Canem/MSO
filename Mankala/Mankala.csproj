@@ -52,7 +52,7 @@
     <Compile Include="Bord\Speelkuiltje.cs" />
     <Compile Include="Spel.cs" />
     <Compile Include="Spel Varianten\SpelVariant.cs" />
-    <Compile Include="Thuiskuiltje.cs" />
+    <Compile Include="Bord\Thuiskuiltje.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

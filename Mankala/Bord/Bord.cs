@@ -8,6 +8,11 @@ namespace Mankala
 {
     class Bord
     {
+        /*
+         * NOTE: Kuiltjenummers worden met n - 1 aangegeven.
+         * Dit betekent dat het eerste kuiltje in-game nummer 1 heeft, maar in de code nummer 0.
+         */
+
         public Kuiltje[] s1Kuiltjes;
         public Kuiltje[] s2Kuiltjes;
 
@@ -58,6 +63,19 @@ namespace Mankala
             if (IsZetValide(huidigeSpeler, kuiltjeNummer) == false)
             {
                 return false;
+            }
+
+            int huidigeSteentjes = 0;
+
+            // Zet speler 1.
+            if (huidigeSpeler == Spel.Speler.Speler1)
+            {
+                huidigeSteentjes = s1Kuiltjes[kuiltjeNummer - 1].Leeg();
+            }
+            
+            for(int i = 0; i < huidigeSteentjes; i++)
+            {
+
             }
 
             Console.WriteLine("Geldige zet. Het bord wordt geupdate.");

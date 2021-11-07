@@ -8,7 +8,7 @@ namespace Mankala
 {
     abstract class Kuiltje
     {
-        protected int aantalSteentjes;
+        public int aantalSteentjes;
         // Speler ..
 
         public void VoegToe(int aantal)
@@ -16,12 +16,20 @@ namespace Mankala
             aantalSteentjes += aantal;
         }
 
+        // Is mogelijk onnodig.
         public void NeemWeg(int aantal)
         {
             if (aantal >= aantalSteentjes)
                 aantalSteentjes = 0;
             else
                 aantalSteentjes -= aantal;
+        }
+
+        public int Leeg()
+        {
+            int aantalSteentjes = GetAantalSteentjes();
+            this.aantalSteentjes = 0;
+            return aantalSteentjes;
         }
 
         public void printKuiltje()
