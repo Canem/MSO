@@ -65,17 +65,43 @@ namespace Mankala
                 return false;
             }
 
-            int huidigeSteentjes = 0;
+            int huidigeSteentjes;
+            int kuiltjeIt = kuiltjeNummer;
+            Spel.Speler spelerIt = huidigeSpeler;
 
-            // Zet speler 1.
-            if (huidigeSpeler == Spel.Speler.Speler1)
-            {
-                huidigeSteentjes = s1Kuiltjes[kuiltjeNummer - 1].Leeg();
-            }
-            
-            for(int i = 0; i < huidigeSteentjes; i++)
-            {
+            // Krijg aantal steentjes
+            if (spelerIt == Spel.Speler.Speler1)
+                huidigeSteentjes = s1Kuiltjes[kuiltjeIt - 1].Leeg();
+            else
+                huidigeSteentjes = s2Kuiltjes[kuiltjeIt - 1].Leeg();
 
+            // Spreid steentjes
+            for (int i = 0; i < huidigeSteentjes; i++)
+            {
+                if (spelerIt == Spel.Speler.Speler1)
+                    kuiltjeIt++;
+                else
+                    kuiltjeIt--;
+
+                // Als kuiltje iteratie te hoog is, wissel speler iteratie. [van rechtsonder naar rechtsboven schuiven]
+                if (kuiltjeIt > s1Kuiltjes.Length)
+                {
+                    spelerIt = Spel.Speler.Speler2;
+                    kuiltjeIt--;
+                }
+
+                // Als kuiltje iteratie te laag is wissel speler iteratie. [van linksboven naar linksonder schuiven]
+                if (kuiltjeIt == 0)
+                {
+                    spelerIt = Spel.Speler.Speler1;
+                    kuiltjeIt++;
+                }
+
+                // Voeg steentjes toe
+                if (spelerIt == Spel.Speler.Speler1)
+                    s1Kuiltjes[kuiltjeIt - 1].VoegToe(1);
+                else
+                    s2Kuiltjes[kuiltjeIt - 1].VoegToe(1);
             }
 
             Console.WriteLine("Geldige zet. Het bord wordt geupdate.");
