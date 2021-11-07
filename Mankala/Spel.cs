@@ -11,13 +11,12 @@ namespace Mankala
         public enum SpelVariant { Mankala, Wari }
 
         public enum Speler { Speler1, Speler2 }
-
         public Speler huidigeSpeler;
         public SpelVariant huidigeVariant;
 
         //Regel[] regels;
 
-        public void InitialiseerSpel()
+        public void InitialiseerSpel(int aantalKuiltjes, int aantalSteentjes)
         {
             huidigeSpeler = Speler.Speler1;
         }

@@ -23,6 +23,13 @@ namespace Mankala
                 "\nDit is de implementatie van groep 14");
 
             InitialiseerVariant();
+
+            Console.WriteLine("Toets in als getal hoeveel kuiltjes iedere speler heeft.");
+            int aantalKuiltjes = VraagGetal();
+            Console.WriteLine("Toets in als getal hoeveel steentjes ieder kuiltje bevat.");
+            int aantalSteentjes = VraagGetal();
+
+            spel.InitialiseerSpel(aantalKuiltjes, aantalSteentjes);
         }
 
         protected static void InitialiseerVariant()
@@ -31,7 +38,8 @@ namespace Mankala
                 "\n[M]ankala" +
                 "\n[W]ari");
 
-            char variantInput = (char)Console.Read();
+            string input = Console.ReadLine();
+            char variantInput = input[0];
 
             switch (variantInput)
             {
@@ -47,6 +55,19 @@ namespace Mankala
                     Console.WriteLine("Ongeldige variant. Kies een correcte letter.");
                     InitialiseerVariant();
                     return;
+            }
+        }
+
+        protected static int VraagGetal()
+        {
+            try
+            {
+                int input = int.Parse(Console.ReadLine());
+                return input;
+            }
+            catch {
+                Console.WriteLine("Ongeldig getal. Toets een correct getal in.");
+                return VraagGetal();
             }
         }
     }
