@@ -46,6 +46,7 @@
     <Compile Include="Bord\Bord.cs" />
     <Compile Include="Bord\Kuiltje.cs" />
     <Compile Include="Regels\Regel.cs" />
+    <Compile Include="Regels\WariRegel.cs" />
     <Compile Include="Spel Varianten\Wari.cs" />
     <Compile Include="Spel Varianten\Mankala.cs" />
     <Compile Include="Program.cs" />

@@ -161,5 +161,30 @@ namespace Mankala
 
             return true;
         }
+
+        public void PaktStenenVoorThuisKuiltje(Spel.Speler huidigeSpeler, Kuiltje kuiltje)
+        {
+            int aantalSteentjes = kuiltje.Leeg();
+            VulThuisKuiltje(huidigeSpeler, aantalSteentjes);
+        }
+
+        public void VulThuisKuiltje(Spel.Speler huidigeSpeler, int aantalSteentjes)
+        {
+            if(huidigeSpeler == Spel.Speler.Speler1)
+            {
+                if (s1VerzamelKuiltje != null)
+                    s1VerzamelKuiltje.VoegToe(aantalSteentjes);
+                else
+                    s1Kuiltjes[s1Kuiltjes.Length - 1].VoegToe(aantalSteentjes);
+            }
+            else
+            {
+                if (s2VerzamelKuiltje != null)
+                    s2VerzamelKuiltje.VoegToe(aantalSteentjes);
+                else
+                    s2Kuiltjes[0].VoegToe(aantalSteentjes);
+            }
+                
+        }
     }
 }
