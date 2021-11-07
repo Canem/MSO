@@ -8,26 +8,49 @@ namespace Mankala
 {
     class Bord
     {
-        Kuiltje[] kuiltjes;
+        public Kuiltje[] s1Kuiltjes;
+        public Kuiltje[] s2Kuiltjes;
 
         public Bord(int aantalKuiltjes, int aantalSteentjes)
         {
-            kuiltjes = new Kuiltje[aantalKuiltjes * 2];
-            for (int i = 0; i < kuiltjes.Length; i++)
+            s1Kuiltjes = new Kuiltje[aantalKuiltjes];
+            s2Kuiltjes = new Kuiltje[aantalKuiltjes];
+
+            for (int i = 0; i < s1Kuiltjes.Length; i++)
             {
-                Kuiltje kuiltje = new Speelkuiltje();
-                kuiltjes[i] = kuiltje;
+                Kuiltje k1 = new Speelkuiltje(aantalSteentjes);
+                Kuiltje k2 = new Speelkuiltje(aantalSteentjes);
+
+                s1Kuiltjes[i] = k1;
+                s2Kuiltjes[i] = k2;
             }
         }
 
-        public void PrintBord()
+        public void PrintBord(Spel.Speler huidigeSpeler)
         {
-            Console.Write("[");
-            foreach (Kuiltje k in kuiltjes)
-            {
+            // Print kuiltje info.
+            Console.Write("Kuiltje#  -   ");
+            for (int i = 0; i < s1Kuiltjes.Length; i++)
+                Console.Write(" " + i + " ");
+            Console.WriteLine();
+
+            // Print speler 2s bord.
+            Console.Write("Speler 2  -  [");
+            foreach (Kuiltje k in s2Kuiltjes)
                 k.printKuiltje();
-            }
-            Console.WriteLine("]");
+            Console.Write("]");
+            if (huidigeSpeler == Spel.Speler.Speler2)
+                Console.Write("  <---");
+            Console.WriteLine();
+
+            // Print speler 1s bord.
+            Console.Write("Speler 1  -  [");
+            foreach (Kuiltje k in s1Kuiltjes)
+                k.printKuiltje();
+            Console.Write("]");
+            if (huidigeSpeler == Spel.Speler.Speler1)
+                Console.Write("  <---");
+            Console.WriteLine();
         }
     }
 }

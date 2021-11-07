@@ -30,7 +30,7 @@ namespace Mankala
         protected void Beurt()
         {
             Console.WriteLine("\n" + huidigeSpeler + " is aan zet.");
-            bord.PrintBord();
+            bord.PrintBord(huidigeSpeler);
 
             Console.WriteLine("Kies een kuiltje.");
             Console.ReadLine();

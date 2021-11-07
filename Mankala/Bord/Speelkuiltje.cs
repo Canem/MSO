@@ -8,5 +8,10 @@ namespace Mankala
 {
     class Speelkuiltje : Kuiltje
     {
+
+        public Speelkuiltje(int aantalSteentjes)
+        {
+            this.aantalSteentjes = aantalSteentjes;
+        }
     }
 }
