@@ -9,5 +9,7 @@ namespace Mankala
     class Wari : SpelVariant
     {
         public static string naam = "Wari";
+
+        public bool Finished(Bord bord, Spel.Speler huidigeSpeler) { return base.IsFinished(bord, huidigeSpeler); }
     }
 }

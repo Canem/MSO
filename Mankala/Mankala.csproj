@@ -45,8 +45,13 @@
   <ItemGroup>
     <Compile Include="Bord\Bord.cs" />
     <Compile Include="Bord\Kuiltje.cs" />
+    <Compile Include="Regels\EigenEnTegenoverLeeg.cs" />
+    <Compile Include="Regels\EigenKuiltjeNietLeeg.cs" />
+    <Compile Include="Regels\EigenLeegTegenNiet.cs" />
+    <Compile Include="Regels\LeegKuiltjeTegenstander.cs" />
     <Compile Include="Regels\Regel.cs" />
     <Compile Include="Regels\WariRegel.cs" />
+    <Compile Include="Spel Varianten\VariantStrategy.cs" />
     <Compile Include="Spel Varianten\Wari.cs" />
     <Compile Include="Spel Varianten\Mankala.cs" />
     <Compile Include="Program.cs" />

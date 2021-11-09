@@ -18,26 +18,21 @@ namespace Mankala
         protected int beurtNummer;
 
         protected List<Regel> regels;
-        public enum ZetResultaat { Niets, PakStenenVoorThuiskuiltje }
+        public enum ZetResultaat { Niets, PakStenenVoorThuiskuiltje, VerderSpelen, VolgendeSpeler }
 
         public void InitialiseerSpel(int aantalKuiltjes, int aantalSteentjes)
         {
             huidigeSpeler = Speler.Speler1;
             bord = new Bord(aantalKuiltjes, aantalSteentjes, true);
             beurtNummer = 1;
-            regels = new List<Regel>();
-
-            switch (huidigeVariant)
-            {
-                case SpelVariant.Mankala:
-                    break;
-                case SpelVariant.Wari:
-                    regels.Add(new WariRegel());
-                    break;
-            }
 
             Console.WriteLine("\n\n\nLaat het spel beginnen!\n");
             Beurt();
+        }
+
+        public void SetRegels(List<Regel> rs)
+        {
+            regels = rs;
         }
 
         protected void Beurt()
@@ -67,9 +62,7 @@ namespace Mankala
                 }
             }
 
-            //Console.WriteLine("SpelerIt: " + spelerIt + " | kuiltjeIt: " + kuiltjeIt);
-
-            List<ZetResultaat> zetActies = CheckRegels(spelerIt, kuiltjeIt);
+            List<ZetResultaat> zetActies = CheckRegels(spelerIt, kuiltjeIt, huidigeSpeler);
 
             foreach (ZetResultaat actie in zetActies)
             {
@@ -78,19 +71,39 @@ namespace Mankala
                     case ZetResultaat.PakStenenVoorThuiskuiltje:
                         bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, laatsteKuiltje);
                         break;
+                    case ZetResultaat.VerderSpelen:
+                        bord.VerderSpelen(huidigeSpeler, kuiltjeIt);
+                        break;
+                    case ZetResultaat.VolgendeSpeler:
+                        huidigeSpeler = NextSpeler(huidigeSpeler);
+                        Beurt();
+                        break;
                     case ZetResultaat.Niets:
                         break;
                 }
             }
 
-            // if -> Beurt(), else -> verander huidige speler en Beurt()
-
-
-            // plaatsverangende code:
-            Console.WriteLine("\nLaatste steen eindigde in ...");
-            Console.WriteLine("De beurt blijft behouden voor " + huidigeSpeler + ".");
+            Console.WriteLine("\nLaatste steen eindigde in " + spelerIt + ".");
             beurtNummer++;
-            Beurt();
+
+            if (huidigeSpeler == spelerIt)
+            {
+                Console.WriteLine("De beurt blijft behouden voor " + huidigeSpeler + ".");
+                Beurt();
+            }
+            else 
+            {
+                huidigeSpeler = NextSpeler(huidigeSpeler);
+                Beurt();
+            }
+        }
+
+        private Speler NextSpeler(Speler s)
+        {
+            if (s == Speler.Speler1)
+                return Speler.Speler2;
+            else
+                return Speler.Speler1;
         }
 
         public Kuiltje Zet()
@@ -105,18 +118,17 @@ namespace Mankala
                 return laatsteKuiltje;
         }
 
-        protected List<ZetResultaat> CheckRegels(Speler spelerIt, int kuiltjeIt)
+        protected List<ZetResultaat> CheckRegels(Speler spelerIt, int kuiltjeIt, Speler huidigeSpeler)
         {
             List<ZetResultaat> zetActies = new List<ZetResultaat>();
             foreach (Regel regel in regels)
             {
-                if (regel.CheckTrigger(bord, spelerIt, kuiltjeIt))
+                if (regel.CheckTrigger(bord, spelerIt, kuiltjeIt, huidigeSpeler))
                     foreach (ZetResultaat zetResultaat in regel.zetResultaten)
                         zetActies.Add(zetResultaat);
             }
 
             return zetActies;
-        }
-        
+        }        
     }
 }

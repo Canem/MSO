@@ -168,6 +168,11 @@ namespace Mankala
             VulThuisKuiltje(huidigeSpeler, aantalSteentjes);
         }
 
+        public void VerderSpelen(Spel.Speler huidigeSpeler, int kuiltjeNummer)
+        {
+            Zet(huidigeSpeler, kuiltjeNummer);
+        }
+
         public void VulThuisKuiltje(Spel.Speler huidigeSpeler, int aantalSteentjes)
         {
             if(huidigeSpeler == Spel.Speler.Speler1)

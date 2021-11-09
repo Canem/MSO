@@ -9,5 +9,7 @@ namespace Mankala
     class Mankala : SpelVariant
     {
         public static string naam = "Mankala";
+
+        public bool Finished(Bord bord, Spel.Speler huidigeSpeler) { return base.IsFinished(bord, huidigeSpeler); }
     }
 }

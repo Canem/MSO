@@ -12,7 +12,6 @@ namespace Mankala
 
         static void Main(string[] args)
         {
-            spel = new Spel();
             SpelInitialisatie();
         }
 
@@ -38,23 +37,19 @@ namespace Mankala
                 "\n[W]ari");
 
             string input = Console.ReadLine();
-            char variantInput = input[0];
+            char variantInput = Char.ToUpper(input[0]);
 
-            switch (variantInput)
+            if(variantInput != 'M' && variantInput != 'W')
             {
-                case 'm':
-                    Console.WriteLine("Je hebt gekozen voor " + Mankala.naam);
-                    spel.huidigeVariant = Spel.SpelVariant.Mankala;
-                    return;
-                case 'w':
-                    Console.WriteLine("Je hebt gekozen voor " + Wari.naam);
-                    spel.huidigeVariant = Spel.SpelVariant.Wari;
-                    return;
-                default:
-                    Console.WriteLine("Ongeldige variant. Kies een correcte letter.");
-                    InitialiseerVariant();
-                    return;
+                Console.WriteLine("Ongeldige variant. Kies een correcte letter.");
+                InitialiseerVariant();
+                return;
             }
+
+            VariantStrategy variant = new VariantStrategy();
+            spel = variant.CreeerSpel(variantInput);
+
+            Console.WriteLine("Je hebt gekozen voor " + spel.huidigeVariant);
         }
 
         public static int VraagGetal(int lower, int upper)

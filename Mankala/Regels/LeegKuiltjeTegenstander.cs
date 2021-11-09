@@ -6,22 +6,28 @@ using System.Threading.Tasks;
 
 namespace Mankala
 {
-    class WariRegel : Regel
+    class LeegKuiltjeTegenstander : Regel
     {
-        public WariRegel()
+        public LeegKuiltjeTegenstander()
         {
-            this.zetResultaten.Add(Spel.ZetResultaat.PakStenenVoorThuiskuiltje);
+            this.zetResultaten.Add(Spel.ZetResultaat.VolgendeSpeler);
         }
 
         public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler)
         {
             Kuiltje kuiltje;
-            if (spelerIt == Spel.Speler.Speler1)
-                kuiltje = bord.s1Kuiltjes[kuiltjeIt - 1];
-            else
-                kuiltje = bord.s2Kuiltjes[kuiltjeIt - 1];
 
-            if (kuiltje.GetAantalSteentjes() == 2 || kuiltje.GetAantalSteentjes() == 3)
+            //In eigenkuiltje gekomen
+            if (spelerIt == huidigeSpeler)
+                return false;
+
+            if (spelerIt == Spel.Speler.Speler1)
+                kuiltje = bord.s2Kuiltjes[kuiltjeIt - 1];
+            else
+                kuiltje = bord.s1Kuiltjes[kuiltjeIt - 1];
+
+            //Kuiltje van de tegenstander is leeg
+            if (kuiltje.GetAantalSteentjes() == 0)
                 return true;
             else
                 return false;

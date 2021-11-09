@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Mankala
 {
-    class WariRegel : Regel
+    class EigenKuiltjeNietLeeg : Regel
     {
-        public WariRegel()
+        public EigenKuiltjeNietLeeg()
         {
-            this.zetResultaten.Add(Spel.ZetResultaat.PakStenenVoorThuiskuiltje);
+            this.zetResultaten.Add(Spel.ZetResultaat.VerderSpelen);
         }
 
-        public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler)
+        public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt)
         {
             Kuiltje kuiltje;
             if (spelerIt == Spel.Speler.Speler1)
