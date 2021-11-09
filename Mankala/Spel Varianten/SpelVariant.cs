@@ -11,6 +11,8 @@ namespace Mankala
         public static string naam;
         List<Regel> regels;
 
+        public abstract bool getThuisKuiltjeRegel();
+
         public virtual bool IsFinished(Bord bord, Spel.Speler huidigeSpeler)
         {
             if (huidigeSpeler == Spel.Speler.Speler1)

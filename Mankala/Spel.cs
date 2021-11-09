@@ -23,7 +23,7 @@ namespace Mankala
         public void InitialiseerSpel(int aantalKuiltjes, int aantalSteentjes)
         {
             huidigeSpeler = Speler.Speler1;
-            bord = new Bord(aantalKuiltjes, aantalSteentjes, true);
+            bord = new Bord(aantalKuiltjes, aantalSteentjes, true, true);
             beurtNummer = 1;
 
             Console.WriteLine("\n\n\nLaat het spel beginnen!\n");
@@ -50,12 +50,12 @@ namespace Mankala
 
             for (int i = 1; i <= bord.s1Kuiltjes.Length; i++)
             {
-                if (laatsteKuiltje.Equals(bord.s1Kuiltjes[i - 1]))
+                if (laatsteKuiltje.Equals(bord.s1Kuiltjes[i - 1]) || laatsteKuiltje.Equals(bord.s1VerzamelKuiltje))
                 {
                     spelerIt = Speler.Speler1;
                     kuiltjeIt = i;
                 }
-                else if (laatsteKuiltje.Equals(bord.s2Kuiltjes[i - 1]))
+                else if (laatsteKuiltje.Equals(bord.s2Kuiltjes[i - 1]) || laatsteKuiltje.Equals(bord.s2VerzamelKuiltje))
                 {
                     spelerIt = Speler.Speler2;
                     kuiltjeIt = i;
@@ -72,7 +72,7 @@ namespace Mankala
                         bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, laatsteKuiltje);
                         break;
                     case ZetResultaat.VerderSpelen:
-                        bord.VerderSpelen(huidigeSpeler, kuiltjeIt);
+                        Beurt();
                         break;
                     case ZetResultaat.VolgendeSpeler:
                         huidigeSpeler = NextSpeler(huidigeSpeler);

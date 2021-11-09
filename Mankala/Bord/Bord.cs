@@ -20,7 +20,9 @@ namespace Mankala
         public Kuiltje s1VerzamelKuiltje;
         public Kuiltje s2VerzamelKuiltje;
 
-        public Bord(int aantalKuiltjes, int aantalSteentjes, bool verzamelKuiltjes)
+        private bool spreidThuisKuil;
+
+        public Bord(int aantalKuiltjes, int aantalSteentjes, bool verzamelKuiltjes, bool spreidThuisKuil)
         {
             // Maak een lijst gevuld met kuiltjes aan voor beide spelers.
             s1Kuiltjes = new Kuiltje[aantalKuiltjes];
@@ -40,32 +42,35 @@ namespace Mankala
                 s1VerzamelKuiltje = new Kuiltje(0, true);
                 s2VerzamelKuiltje = new Kuiltje(0, true);
             }
+
+            this.spreidThuisKuil = spreidThuisKuil;
         }
 
         public void PrintBord(Spel.Speler huidigeSpeler)
         {
             // Print kuiltje info.
-            Console.Write("Kuiltje#  -     ");
+            Console.Write("Kuiltje#  -            ");
             for (int i = 0; i < s1Kuiltjes.Length; i++)
                 Console.Write(" " + (i+1) + ". ");
             Console.WriteLine();
 
             // Print speler 2s bord.
-            Console.Write("Speler 2  -  | <");
+            Console.Write("Speler 2  -  ");
+            if (s2VerzamelKuiltje != null)
+            {
+                s2VerzamelKuiltje.PrintKuiltje();
+            }
+            Console.Write("  | <");
             foreach (Kuiltje k in s2Kuiltjes)
                 k.PrintKuiltje();
             Console.Write("< |");
-            if (s2VerzamelKuiltje != null)
-            {
-                Console.Write("  ");
-                s2VerzamelKuiltje.PrintKuiltje();
-            }
+            
             if (huidigeSpeler == Spel.Speler.Speler2)
                 Console.Write("  <---");
             Console.WriteLine();
 
             // Print speler 1s bord.
-            Console.Write("Speler 1  -  | >");
+            Console.Write("Speler 1  -        | >");
             foreach (Kuiltje k in s1Kuiltjes)
                 k.PrintKuiltje();
             Console.Write("> |");
@@ -96,6 +101,9 @@ namespace Mankala
             else
                 huidigeSteentjes = s2Kuiltjes[kuiltjeIt - 1].Leeg();
 
+
+            Kuiltje laatsteKuiltje = s1Kuiltjes[kuiltjeIt - 1];
+
             // Spreid steentjes
             while (huidigeSteentjes > 0)
             {
@@ -107,22 +115,48 @@ namespace Mankala
                 // Als kuiltje iteratie te hoog is, wissel speler iteratie. [van rechtsonder naar rechtsboven schuiven]
                 if (kuiltjeIt > s1Kuiltjes.Length)
                 {
-                    spelerIt = Spel.Speler.Speler2;
-                    kuiltjeIt--;
+                    if(!spreidThuisKuil)
+                    {
+                        spelerIt = Spel.Speler.Speler2;
+                        kuiltjeIt--;
+                    } else
+                    {
+                        spelerIt = Spel.Speler.Speler2;
+                        s1VerzamelKuiltje.VoegToe(1);
+                        huidigeSteentjes--;
+                        laatsteKuiltje = s1VerzamelKuiltje;
+                        continue;
+                    }
+                    
                 }
 
                 // Als kuiltje iteratie te laag is wissel speler iteratie. [van linksboven naar linksonder schuiven]
                 if (kuiltjeIt == 0)
                 {
-                    spelerIt = Spel.Speler.Speler1;
-                    kuiltjeIt++;
+                    if(!spreidThuisKuil)
+                    {
+                        spelerIt = Spel.Speler.Speler1;
+                        kuiltjeIt++;
+                    } else
+                    {
+                        spelerIt = Spel.Speler.Speler1;
+                        s2VerzamelKuiltje.VoegToe(1);
+                        huidigeSteentjes--;
+                        laatsteKuiltje = s2VerzamelKuiltje;
+                        continue;
+                    }
                 }
 
                 // Voeg steentjes toe
                 if (spelerIt == Spel.Speler.Speler1)
+                {
                     s1Kuiltjes[kuiltjeIt - 1].VoegToe(1);
-                else
+                    laatsteKuiltje = s1Kuiltjes[kuiltjeIt - 1];
+                } else
+                {
                     s2Kuiltjes[kuiltjeIt - 1].VoegToe(1);
+                    laatsteKuiltje = s2Kuiltjes[kuiltjeIt - 1];
+                }
 
                 huidigeSteentjes--;
             }
@@ -130,10 +164,7 @@ namespace Mankala
             Console.WriteLine("Geldige zet. Het bord wordt geupdate.");
 
             // Return het laatste kuiltje.
-            if (spelerIt == Spel.Speler.Speler1)
-                return s1Kuiltjes[kuiltjeIt - 1];
-            else
-                return s2Kuiltjes[kuiltjeIt - 1];
+            return laatsteKuiltje;
         }
 
         protected bool IsZetValide(Spel.Speler huidigeSpeler, int kuiltjeNummer)
