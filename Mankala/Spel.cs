@@ -68,37 +68,42 @@ namespace Mankala
             }
 
             List<ZetResultaat> zetActies = CheckRegels(spelerIt, kuiltjeIt, huidigeSpeler, laatsteKuiltje);
+            VoerZetActiesUit();
 
-            foreach (ZetResultaat actie in zetActies)
+            // Gaat de lijst met zet acties langs en voert deze uit.
+            void VoerZetActiesUit()
             {
-                switch (actie)
+                foreach (ZetResultaat actie in zetActies)
                 {
-                    case ZetResultaat.PakStenenVoorThuiskuiltje:
-                        bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, laatsteKuiltje);
-                        break;
-                    case ZetResultaat.VerderSpelen:
-                        volgendeSpeler = huidigeSpeler;
-                        break;
-                    case ZetResultaat.VolgendeSpeler:
-                        volgendeSpeler = NextSpeler(huidigeSpeler);
-                        break;
-                    case ZetResultaat.PakStenenTegenover:
-                        bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, laatsteKuiltje);
-                        bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, bord.getTegenover(kuiltjeIt, huidigeSpeler));
-                        break;
-                    case ZetResultaat.DoorSpreiden:
-                        Zet(false, kuiltjeIt);
-                        break;
-                    case ZetResultaat.Niets:
-                        break;
+                    switch (actie)
+                    {
+                        case ZetResultaat.PakStenenVoorThuiskuiltje:
+                            bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, laatsteKuiltje);
+                            break;
+                        case ZetResultaat.VerderSpelen:
+                            volgendeSpeler = huidigeSpeler;
+                            break;
+                        case ZetResultaat.VolgendeSpeler:
+                            volgendeSpeler = NextSpeler(huidigeSpeler);
+                            break;
+                        case ZetResultaat.PakStenenTegenover:
+                            bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, laatsteKuiltje);
+                            bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, bord.getTegenover(kuiltjeIt, huidigeSpeler));
+                            break;
+                        case ZetResultaat.DoorSpreiden:
+                            Zet(false, kuiltjeIt);
+                            break;
+                        case ZetResultaat.Niets:
+                            break;
+                    }
                 }
             }
-            // Console.WriteLine("\nLaatste steen eindigde in " + spelerIt + ".");
             beurtNummer++;
-
             huidigeSpeler = volgendeSpeler;
             Beurt();
         }
+
+
 
         private Speler NextSpeler(Speler s)
         {
@@ -110,7 +115,6 @@ namespace Mankala
 
         public Kuiltje Zet(bool vraagGetal = true, int kuiltjeNummer = 0)
         {
-
             if (vraagGetal)
                 kuiltjeNummer = Program.VraagGetal(0, 9);
 
@@ -134,15 +138,14 @@ namespace Mankala
                     foreach (ZetResultaat zetResultaat in regel.zetResultaten)
                         zetActies.Add(zetResultaat);
                 }
-                    
             }
 
             if (zetActies.Count == 0)
                 zetActies.Add(ZetResultaat.VolgendeSpeler);
 
             return zetActies;
-        }   
-        
+        }
+
         private void EindigSpel()
         {
             int s1Punten = bord.s1VerzamelKuiltje.GetAantalSteentjes();
