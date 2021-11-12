@@ -8,9 +8,13 @@ namespace Mankala
 {
     abstract class Regel
     {
+        // De naam van de regel. Wanneer de regel getriggerd wordt, wordt de naam weergegeven.
         public string naam;
 
+        // Een lijst met acties die gedaan moeten worden als aan de regel voldaan wordt.
         public List<Spel.ZetResultaat> zetResultaten = new List<Spel.ZetResultaat>();
-        public abstract bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje);
+        
+        // Kijkt of aan de regel voldaan wordt. true = ja, false = nee
+        public abstract bool CheckTrigger(Bord bord, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje);
     }
 }

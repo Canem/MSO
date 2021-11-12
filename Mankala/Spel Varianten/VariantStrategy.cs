@@ -8,17 +8,18 @@ namespace Mankala
 {
     class VariantStrategy
     {
-        private Spel spel;
-        private List<Regel> regels;
+        private readonly Spel spel;
+        private readonly List<Regel> regels;
+
         public VariantStrategy()
         {
             spel = new Spel();
             regels = new List<Regel>();
         }
 
-        public Spel CreeerSpel(char v)
+        public Spel CreeerSpel(char input)
         {
-            switch (v)
+            switch (input)
             {
                 case 'M':
                     spel.huidigeVariant = new Mankala();
@@ -39,6 +40,5 @@ namespace Mankala
             spel.SetRegels(regels);
             return spel;
         }
-
     }
 }

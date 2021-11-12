@@ -15,8 +15,11 @@ namespace Mankala
         }
 
         // Check of het laatste steentje in een leeg kuiltje van de tegenspeler terecht is gekomen.
-        public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
+        public override bool CheckTrigger(Bord bord, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
+            // Verkrijg iteraties.
+            Spel.Speler spelerIt = bord.GetSpelerIt(laatsteKuiltje);
+
             // In eigen kuiltje gekomen.
             if (spelerIt == huidigeSpeler)
                 return false;

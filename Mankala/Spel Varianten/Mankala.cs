@@ -10,14 +10,15 @@ namespace Mankala
     {
         private static readonly string Naam = "Mankala";
         private static readonly bool ThuisKuiltjeSpreiden = true;
+
         public bool Finished(Bord bord, Spel.Speler huidigeSpeler) { return base.IsFinished(bord, huidigeSpeler); }
 
-        public override bool getThuisKuiltjeRegel()
+        public override bool GetThuisKuiltjeRegel()
         {
             return ThuisKuiltjeSpreiden;
         }
 
-        public override string getNaam()
+        public override string GetNaam()
         {
             return Naam;
         }

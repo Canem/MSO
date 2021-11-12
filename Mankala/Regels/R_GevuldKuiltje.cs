@@ -16,9 +16,9 @@ namespace Mankala
 
         // Check of het laatste steentje in een kuiltje terecht is gekomen dat niet leeg is.
         // Verder wordt gecheckt of dit geen thuiskuiltje is om niet te clashen met de thuiskuiltje regel.
-        public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
+        public override bool CheckTrigger(Bord bord, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
-            if (laatsteKuiltje.GetAantalSteentjes() != 0 && !laatsteKuiltje.isThuisKuiltje)
+            if (laatsteKuiltje.GetAantalSteentjes() > 1 && !laatsteKuiltje.isThuisKuiltje)
                 return true;
             else
                 return false;

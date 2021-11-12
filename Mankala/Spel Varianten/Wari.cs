@@ -11,12 +11,12 @@ namespace Mankala
         public static string Naam = "Wari";
         private static readonly bool ThuisKuiltjeSpreiden = false;
 
-        public override bool getThuisKuiltjeRegel()
+        public override bool GetThuisKuiltjeRegel()
         {
             return ThuisKuiltjeSpreiden;
         }
 
-        public override string getNaam()
+        public override string GetNaam()
         {
             return Naam;
         }

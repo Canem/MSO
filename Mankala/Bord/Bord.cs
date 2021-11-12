@@ -13,14 +13,14 @@ namespace Mankala
          * Dit betekent dat het eerste kuiltje in-game nummer 1 heeft, maar in de code nummer 0.
          */
 
+        // De kuiltjes van speler 1 en 2.
         public Kuiltje[] s1Kuiltjes;
         public Kuiltje[] s2Kuiltjes;
 
         // Verzamelkuiltjes voor de Wari variant.
         public Kuiltje s1VerzamelKuiltje;
         public Kuiltje s2VerzamelKuiltje;
-
-        private bool spreidThuisKuil;
+        private readonly bool spreidThuisKuil;
 
         public Bord(int aantalKuiltjes, int aantalSteentjes, bool verzamelKuiltjes, bool spreidThuisKuil)
         {
@@ -87,6 +87,7 @@ namespace Mankala
             Program.ui.GeefWeer(printString);
         }
 
+        // Handelt het doen van een zet af waarin steentjes gespreid worden.
         public Kuiltje Zet(Spel.Speler huidigeSpeler, int kuiltjeNummer)
         {
             if (IsZetValide(huidigeSpeler, kuiltjeNummer) == false)
@@ -101,6 +102,7 @@ namespace Mankala
             return laatsteKuiltje;
         }
 
+        // Pak de steentjes op uit een kuiltje en verspreid deze over de kuiltjes tegen de klok in.
         protected Kuiltje SpreidSteentjes(Spel.Speler spelerIt, int kuiltjeIt)
         {
             Kuiltje laatsteKuiltje = null;
@@ -173,6 +175,7 @@ namespace Mankala
             return laatsteKuiltje;
         }
 
+        // Controleert of een zet toegestaan is.
         protected bool IsZetValide(Spel.Speler huidigeSpeler, int kuiltjeNummer)
         {
             // Algemene tests.
@@ -199,10 +202,11 @@ namespace Mankala
             return true;
         }
 
-        public Kuiltje getTegenover(int kuiltjeIt, Spel.Speler s)
+        // Verkrijg het kuiltje tegenover het huidige kuiltje.
+        public Kuiltje GetTegenover(int kuiltjeIt, Spel.Speler spelerIt)
         {
             Kuiltje tegenover;
-            if(s == Spel.Speler.Speler1)
+            if(spelerIt == Spel.Speler.Speler1)
                 tegenover = s2Kuiltjes[kuiltjeIt - 1];
             else
                 tegenover = s1Kuiltjes[kuiltjeIt - 1];
@@ -210,12 +214,14 @@ namespace Mankala
             return tegenover;
         }
 
+        // Pak de stenen van het huidige kuiltje en stop deze in het thuiskuiltje.
         public void PaktStenenVoorThuisKuiltje(Spel.Speler huidigeSpeler, Kuiltje kuiltje)
         {
             int aantalSteentjes = kuiltje.Leeg();
             VulThuisKuiltje(huidigeSpeler, aantalSteentjes);
         }
 
+        // Leg stenen in het thuiskuiltje.
         private void VulThuisKuiltje(Spel.Speler huidigeSpeler, int aantalSteentjes)
         {
             if(huidigeSpeler == Spel.Speler.Speler1)
@@ -234,6 +240,7 @@ namespace Mankala
             }  
         }
 
+        // Blijf steentjes spreiden totdat de laatste steen in een leeg kuiltje belandt.
         public void BlijfSpreiden(Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler)
         {
             PrintBord(huidigeSpeler);
@@ -244,7 +251,7 @@ namespace Mankala
                 BlijfSpreiden(GetSpelerIt(laatsteKuiltje), GetKuiltjeIt(laatsteKuiltje), huidigeSpeler);
         }
 
-
+        // Verkrijg de speler iteratie.
         public Spel.Speler GetSpelerIt(Kuiltje kuiltje)
         {
             for (int i = 1; i <= s1Kuiltjes.Length; i++)
@@ -255,6 +262,7 @@ namespace Mankala
             return Spel.Speler.Speler2;
         }
 
+        // Verkrijg de kuiltje iteratie.
         public int GetKuiltjeIt(Kuiltje kuiltje)
         {
             for (int i = 1; i <= s1Kuiltjes.Length; i++)

@@ -8,9 +8,9 @@ namespace Mankala
 {
     abstract class SpelVariant
     {
-        public abstract bool getThuisKuiltjeRegel();
+        public abstract bool GetThuisKuiltjeRegel();
 
-        public abstract string getNaam();
+        public abstract string GetNaam();
 
         public virtual bool IsFinished(Bord bord, Spel.Speler huidigeSpeler)
         {

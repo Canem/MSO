@@ -8,18 +8,31 @@ namespace Mankala
 {
     class Spel
     {
+        // Speler variabelen
         public enum Speler { Speler1, Speler2 }
         public Speler huidigeSpeler;
-        private Speler volgendeSpeler;
-        public SpelVariant huidigeVariant;
+        protected Speler volgendeSpeler;
 
+        // De spelvariant en de bijbehorende spelregels.
+        public SpelVariant huidigeVariant;
+        protected List<Regel> regels;
+        
+        // De potentiële uitkomsten van een zet.
+        public enum ZetResultaat {
+            Niets,
+            PakStenenVoorThuiskuiltje,
+            VerderSpelen,
+            VolgendeSpeler,
+            PakStenenTegenover,
+            DoorSpreiden }
+
+        // Het speelbord.
         protected Bord bord;
+        
+        // Een counter om het beurtnummer bij te houden.
         protected int beurtNummer;
 
-        protected List<Regel> regels;
-        public enum ZetResultaat { Niets, PakStenenVoorThuiskuiltje, VerderSpelen, VolgendeSpeler, PakStenenTegenover, DoorSpreiden }
-
-
+        // Maakt een nieuw spel aan.
         public void InitialiseerSpel(int aantalKuiltjes, int aantalSteentjes, bool thuisSpreiden)
         {
             huidigeSpeler = Speler.Speler1;
@@ -30,11 +43,7 @@ namespace Mankala
             Beurt();
         }
 
-        public void SetRegels(List<Regel> rs)
-        {
-            regels = rs;
-        }
-
+        // Doe een beurt van het spel, waarbij de speler wordt gevraagd een zet te doen en het spel geupdate wordt.
         protected void Beurt()
         {
             Program.ui.GeefWeer("\n\n- Beurt " + beurtNummer + " -" + "\n");
@@ -71,10 +80,11 @@ namespace Mankala
                             break;
                         case ZetResultaat.PakStenenTegenover:
                             bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, laatsteKuiltje);
-                            bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, bord.getTegenover(kuiltjeIt, huidigeSpeler));
+                            bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, bord.GetTegenover(kuiltjeIt, huidigeSpeler));
                             break;
                         case ZetResultaat.DoorSpreiden:
                             bord.BlijfSpreiden(spelerIt, kuiltjeIt, huidigeSpeler);
+                            volgendeSpeler = NextSpeler(huidigeSpeler);
                             break;
                         case ZetResultaat.Niets:
                             break;
@@ -86,7 +96,8 @@ namespace Mankala
             Beurt();
         }
 
-        private Speler NextSpeler(Speler s)
+        // Verkrijg de volgende speler.
+        protected Speler NextSpeler(Speler s)
         {
             if (s == Speler.Speler1)
                 return Speler.Speler2;
@@ -94,6 +105,7 @@ namespace Mankala
                 return Speler.Speler1;
         }
 
+        // Doe een zet door een kuiltje te kiezen en het bord te updaten.
         public Kuiltje Zet(bool vraagGetal = true, int kuiltjeNummer = 0)
         {
             if (vraagGetal)
@@ -108,15 +120,13 @@ namespace Mankala
                 return laatsteKuiltje;
         }
 
+        // Ga alle spelregels van de gebruikte variant langs om te kijken of er een van toepassing is.
         protected List<ZetResultaat> CheckRegels(Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
-            Speler spelerIt = bord.GetSpelerIt(laatsteKuiltje);
-            int kuiltjeIt = bord.GetKuiltjeIt(laatsteKuiltje);
-
             List<ZetResultaat> zetResultaten = new List<ZetResultaat>();
             foreach (Regel regel in regels)
             {
-                if (regel.CheckTrigger(bord, spelerIt, kuiltjeIt, huidigeSpeler, laatsteKuiltje))
+                if (regel.CheckTrigger(bord, huidigeSpeler, laatsteKuiltje))
                 {
                     Program.ui.GeefWeer("Laatste steen eindigde in " + regel.naam);
                     foreach (ZetResultaat zetResultaat in regel.zetResultaten)
@@ -130,7 +140,8 @@ namespace Mankala
             return zetResultaten;
         }
 
-        private void EindigSpel()
+        // Beëindig het spel en geef de winnaar weer.
+        protected void EindigSpel()
         {
             int s1Punten = bord.s1VerzamelKuiltje.GetAantalSteentjes();
             int s2Punten = bord.s2VerzamelKuiltje.GetAantalSteentjes();
@@ -143,6 +154,12 @@ namespace Mankala
                 Program.ui.GeefWeer("Het is een gelijk spel!");
 
             Program.VraagRematch();
+        }
+
+        // Setter voor regels.
+        public void SetRegels(List<Regel> rs)
+        {
+            regels = rs;
         }
     }
 }
