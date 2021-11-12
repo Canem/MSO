@@ -9,22 +9,24 @@ namespace Mankala
     class Program
     {
         public static Spel spel;
+        public static UI ui;
 
         static void Main(string[] args)
         {
+            ui = new UI_Console();
             SpelInitialisatie();
         }
 
         protected static void SpelInitialisatie()
         {
-            Console.WriteLine("Welkom bij Console Mankala!" +
+            ui.GeefWeer("Welkom bij Console Mankala!" +
                 "\nDit is de implementatie van groep 14");
 
             InitialiseerVariant();
 
-            Console.WriteLine("Toets in als getal hoeveel kuiltjes iedere speler heeft. Min 1, max 9.");
+            ui.GeefWeer("Toets in als getal hoeveel kuiltjes iedere speler heeft. Min 1, max 9.");
             int aantalKuiltjes = VraagGetal(1, 9);
-            Console.WriteLine("Toets in als getal hoeveel steentjes ieder kuiltje bevat. Min 1, max 9.");
+            ui.GeefWeer("Toets in als getal hoeveel steentjes ieder kuiltje bevat. Min 1, max 9.");
             int aantalSteentjes = VraagGetal(1, 9);
 
             spel.InitialiseerSpel(aantalKuiltjes, aantalSteentjes, spel.huidigeVariant.getThuisKuiltjeRegel());
@@ -32,7 +34,7 @@ namespace Mankala
 
         protected static void InitialiseerVariant()
         {
-            Console.WriteLine("\n\nSelecteer een spelvariant:" +
+            ui.GeefWeer("\n\nSelecteer een spelvariant:" +
                 "\n[M]ankala" +
                 "\n[W]ari");
 
@@ -41,7 +43,7 @@ namespace Mankala
 
             if(variantInput != 'M' && variantInput != 'W')
             {
-                Console.WriteLine("Ongeldige variant. Kies een correcte letter.");
+                ui.GeefWeer("Ongeldige variant. Kies een correcte letter.");
                 InitialiseerVariant();
                 return;
             }
@@ -49,7 +51,7 @@ namespace Mankala
             VariantStrategy variant = new VariantStrategy();
             spel = variant.CreeerSpel(variantInput);
 
-            Console.WriteLine("Je hebt gekozen voor " + spel.huidigeVariant.getNaam());
+            ui.GeefWeer("Je hebt gekozen voor " + spel.huidigeVariant.getNaam());
         }
 
         public static int VraagGetal(int lower, int upper)
@@ -59,34 +61,34 @@ namespace Mankala
                 int input = int.Parse(Console.ReadLine());
                 if(input < lower || input > upper)
                 {
-                    Console.WriteLine("Toets een getal in binnen de marges.");
+                    ui.GeefWeer("Toets een getal in binnen de marges.");
                     return VraagGetal(lower, upper);
                 }
                 return input;
             }
             catch {
-                Console.WriteLine("Ongeldige input. Toets een correct getal in.");
+                ui.GeefWeer("Ongeldige input. Toets een correct getal in.");
                 return VraagGetal(lower, upper);
             }
         }
 
         public static void VraagRematch()
         {
-            Console.WriteLine("\nWil je nog een potje spelen? [j]a of [n]ee?");
+            ui.GeefWeer("\nWil je nog een potje spelen? [j]a of [n]ee?");
             char input = (char)Console.ReadLine()[0];
             if(input == 'j')
             {
-                Console.WriteLine("Het spel wordt herstart...\n\n");
+                ui.GeefWeer("Het spel wordt herstart...\n\n");
                 SpelInitialisatie();
             }
             else if(input == 'n')
             {
-                Console.WriteLine("Tot ziens!");
+                ui.GeefWeer("Tot ziens!");
                 Console.ReadLine();
             }
             else
             {
-                Console.WriteLine("Toets [j]a of [n]ee in a.u.b.");
+                ui.GeefWeer("Toets [j]a of [n]ee in a.u.b.");
                 VraagRematch();
             }
         }

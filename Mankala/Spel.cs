@@ -26,7 +26,7 @@ namespace Mankala
             bord = new Bord(aantalKuiltjes, aantalSteentjes, true, thuisSpreiden);
             beurtNummer = 1;
 
-            Console.WriteLine("\n\n\nLaat het spel beginnen!\n");
+            Program.ui.GeefWeer("\n\n\nLaat het spel beginnen!\n");
             Beurt();
         }
 
@@ -37,7 +37,7 @@ namespace Mankala
 
         protected void Beurt()
         {
-            Console.WriteLine("\n\n- Beurt " + beurtNummer + " -" + "\n");
+            Program.ui.GeefWeer("\n\n- Beurt " + beurtNummer + " -" + "\n");
 
             bord.PrintBord(huidigeSpeler);
 
@@ -46,7 +46,7 @@ namespace Mankala
                 EindigSpel();
             }
 
-            Console.WriteLine("\n" + huidigeSpeler + " is aan zet." + "\nKies een kuiltje.");
+            Program.ui.GeefWeer("\n" + huidigeSpeler + " is aan zet." + "\nKies een kuiltje.");
             Kuiltje laatsteKuiltje = Zet();
 
             // Verkrijg het kuiltjeNummer en bij welke speler het laatste kuiltje behoort.
@@ -103,8 +103,6 @@ namespace Mankala
             Beurt();
         }
 
-
-
         private Speler NextSpeler(Speler s)
         {
             if (s == Speler.Speler1)
@@ -134,7 +132,7 @@ namespace Mankala
             {
                 if (regel.CheckTrigger(bord, spelerIt, kuiltjeIt, huidigeSpeler, laatsteKuiltje))
                 {
-                    Console.WriteLine("Laatste steen eindigde in " + regel.naam);
+                    Program.ui.GeefWeer("Laatste steen eindigde in " + regel.naam);
                     foreach (ZetResultaat zetResultaat in regel.zetResultaten)
                         zetActies.Add(zetResultaat);
                 }
@@ -152,11 +150,11 @@ namespace Mankala
             int s2Punten = bord.s2VerzamelKuiltje.GetAantalSteentjes();
 
             if (s1Punten > s2Punten)
-                Console.WriteLine("Speler 1 is de winnaar!");
+                Program.ui.GeefWeer("Speler 1 is de winnaar!");
             else if (s2Punten > s1Punten)
-                Console.WriteLine("Speler 2 is de winnaar!");
+                Program.ui.GeefWeer("Speler 2 is de winnaar!");
             else
-                Console.WriteLine("Het is een gelijk spel!");
+                Program.ui.GeefWeer("Het is een gelijk spel!");
 
             Program.VraagRematch();
         }

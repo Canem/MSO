@@ -29,21 +29,21 @@ namespace Mankala
             return aantalSteentjes;
         }
 
-        public virtual void PrintKuiltje()
+        public string PrintKuiltje()
         {
             if (!isThuisKuiltje)
             {
                 if (aantalSteentjes < 10)
-                    Console.Write("( " + aantalSteentjes + ")");
+                    return ("( " + aantalSteentjes + ")");
                 else
-                    Console.Write("(" + aantalSteentjes + ")");
+                    return ("(" + aantalSteentjes + ")");
             }
             else
             {
                 if (aantalSteentjes < 10)
-                    Console.Write("{ " + aantalSteentjes + "}");
+                    return ("{ " + aantalSteentjes + "}");
                 else
-                    Console.Write("{" + aantalSteentjes + "}");
+                    return ("{" + aantalSteentjes + "}");
             }
         }
 

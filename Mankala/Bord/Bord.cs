@@ -49,39 +49,41 @@ namespace Mankala
         public void PrintBord(Spel.Speler huidigeSpeler)
         {
             // Print kuiltje info.
-            Console.Write("Kuiltje#  -            ");
+            String printString = "";
+            printString += ("Kuiltje#  -            ");
             for (int i = 0; i < s1Kuiltjes.Length; i++)
-                Console.Write(" " + (i+1) + ". ");
-            Console.WriteLine();
+                printString += (" " + (i+1) + ". ");
+            Program.ui.GeefWeer(printString);
 
             // Print speler 2s bord.
-            Console.Write("Speler 2  -  ");
+            printString = "";
+            printString += ("Speler 2  -  ");
             if (s2VerzamelKuiltje != null)
             {
-                s2VerzamelKuiltje.PrintKuiltje();
+                printString += s2VerzamelKuiltje.PrintKuiltje();
             }
-            Console.Write("  | <");
+            printString += ("  | <");
             foreach (Kuiltje k in s2Kuiltjes)
-                k.PrintKuiltje();
-            Console.Write("< |");
+                printString += k.PrintKuiltje();
+            printString += ("< |");
             
             if (huidigeSpeler == Spel.Speler.Speler2)
-                Console.Write("  <---");
-            Console.WriteLine();
+                printString += ("  <---");
+            Program.ui.GeefWeer(printString);
 
             // Print speler 1s bord.
-            Console.Write("Speler 1  -        | >");
+            printString = "";
+            printString += ("Speler 1  -        | >");
             foreach (Kuiltje k in s1Kuiltjes)
-                k.PrintKuiltje();
-            Console.Write("> |");
+                printString += k.PrintKuiltje();
+            printString += ("> |");
             if (s1VerzamelKuiltje != null)
             {
-                Console.Write("  ");
-                s1VerzamelKuiltje.PrintKuiltje();
+                printString += ("  ") + s1VerzamelKuiltje.PrintKuiltje();
             }
             if (huidigeSpeler == Spel.Speler.Speler1)
-                Console.Write("  <---");
-            Console.WriteLine();
+                printString += ("  <---");
+            Program.ui.GeefWeer(printString);
         }
 
         public Kuiltje Zet(Spel.Speler huidigeSpeler, int kuiltjeNummer)
@@ -161,7 +163,7 @@ namespace Mankala
                 huidigeSteentjes--;
             }
 
-            Console.WriteLine("Geldige zet. Het bord wordt geupdate.");
+            Program.ui.GeefWeer("Geldige zet - Het bord wordt geupdate.");
 
             // Return het laatste kuiltje.
             return laatsteKuiltje;
@@ -172,21 +174,21 @@ namespace Mankala
             // Algemene tests.
             if (kuiltjeNummer == 0 || kuiltjeNummer > s1Kuiltjes.Length)
             {
-                Console.WriteLine("Kies een correct nummer dat past bij een kuiltje.");
+                Program.ui.GeefWeer("Kies een correct nummer dat past bij een kuiltje.");
                 return false;
             }
 
             // Test voor speler 1.
             if (huidigeSpeler == Spel.Speler.Speler1 && s1Kuiltjes[kuiltjeNummer - 1].GetAantalSteentjes() == 0)
             {
-                Console.WriteLine("Kies een kuiltje dat steentjes bevat.");
+                Program.ui.GeefWeer("Kies een kuiltje dat steentjes bevat.");
                 return false;
             }
 
             // Test voor speler 2.
             if (huidigeSpeler == Spel.Speler.Speler2 && s2Kuiltjes[kuiltjeNummer - 1].GetAantalSteentjes() == 0)
             {
-                Console.WriteLine("Kies een kuiltje dat steentjes bevat.");
+                Program.ui.GeefWeer("Kies een kuiltje dat steentjes bevat.");
                 return false;
             }
 
@@ -227,7 +229,5 @@ namespace Mankala
                     s2Kuiltjes[0].VoegToe(aantalSteentjes);
             }  
         }
-
-       
     }
 }
