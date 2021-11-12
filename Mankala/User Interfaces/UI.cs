@@ -9,5 +9,6 @@ namespace Mankala
     abstract class UI
     {
         public abstract void GeefWeer(String input);
+        public abstract string VraagInput();
     }
 }

@@ -13,5 +13,10 @@ namespace Mankala
         {
             Console.WriteLine(input);
         }
+
+        public override string VraagInput()
+        {
+            return Console.ReadLine();
+        }
     }
 }

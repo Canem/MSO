@@ -38,7 +38,7 @@ namespace Mankala
                 "\n[M]ankala" +
                 "\n[W]ari");
 
-            string input = Console.ReadLine();
+            string input = ui.VraagInput();
             char variantInput = Char.ToUpper(input[0]);
 
             if(variantInput != 'M' && variantInput != 'W')
@@ -58,7 +58,7 @@ namespace Mankala
         {
             try
             {
-                int input = int.Parse(Console.ReadLine());
+                int input = int.Parse(ui.VraagInput());
                 if(input < lower || input > upper)
                 {
                     ui.GeefWeer("Toets een getal in binnen de marges.");
@@ -75,7 +75,7 @@ namespace Mankala
         public static void VraagRematch()
         {
             ui.GeefWeer("\nWil je nog een potje spelen? [j]a of [n]ee?");
-            char input = (char)Console.ReadLine()[0];
+            char input = (char)ui.VraagInput()[0];
             if(input == 'j')
             {
                 ui.GeefWeer("Het spel wordt herstart...\n\n");
@@ -84,7 +84,7 @@ namespace Mankala
             else if(input == 'n')
             {
                 ui.GeefWeer("Tot ziens!");
-                Console.ReadLine();
+                ui.VraagInput();
             }
             else
             {
