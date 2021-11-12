@@ -14,19 +14,22 @@ namespace Mankala
             this.zetResultaten.Add(Spel.ZetResultaat.VolgendeSpeler);
         }
 
+        // Checkt of het laaste steentje terecht komt in een eigen kuiltje dat leeg is, en het kuiltje tegenover leeg is.
         public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
-
-            //Niet in eigen kuiltje gekomen
-            if (spelerIt != huidigeSpeler)
+            // Excludeer thuiskuiltjes, kuiltjes van de tegenstander en niet-lege kuiltjes.
+            if (laatsteKuiltje.isThuisKuiltje || spelerIt != huidigeSpeler || laatsteKuiltje.GetAantalSteentjes() != 0)
                 return false;
 
+            // Verkrijg tegenoverliggend kuiltje.
+            Kuiltje kuiltjeTegen;
+            if (huidigeSpeler == Spel.Speler.Speler1)
+                kuiltjeTegen = bord.s2Kuiltjes[kuiltjeIt - 1];
+            else
+                kuiltjeTegen = bord.s1Kuiltjes[kuiltjeIt - 1];
 
-            Kuiltje kuiltje1 = bord.s2Kuiltjes[kuiltjeIt - 1];
-            Kuiltje kuiltje2 = bord.s1Kuiltjes[kuiltjeIt - 1];
-
-            //Eigen kuiltje en tegenover is leeg
-            if (kuiltje1.GetAantalSteentjes() == 0 && kuiltje2.GetAantalSteentjes() == 0)
+            // Tegenoverliggend kuiltje is leeg.
+            if (kuiltjeTegen.GetAantalSteentjes() == 0)
                 return true;
             else
                 return false;

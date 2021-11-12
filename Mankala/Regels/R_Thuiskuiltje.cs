@@ -14,6 +14,7 @@ namespace Mankala
             this.zetResultaten.Add(Spel.ZetResultaat.VerderSpelen);
         }
 
+        // Check of de laaste steen in het eigen thuiskuiltje terecht is gekomen.
         public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
             if((huidigeSpeler == Spel.Speler.Speler1 && laatsteKuiltje.Equals(bord.s1VerzamelKuiltje)) 

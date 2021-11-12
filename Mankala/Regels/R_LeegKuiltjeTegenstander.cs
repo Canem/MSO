@@ -14,21 +14,15 @@ namespace Mankala
             this.zetResultaten.Add(Spel.ZetResultaat.VolgendeSpeler);
         }
 
+        // Check of het laatste steentje in een leeg kuiltje van de tegenspeler terecht is gekomen.
         public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
-            Kuiltje kuiltje;
-
-            //In eigenkuiltje gekomen
+            // In eigen kuiltje gekomen.
             if (spelerIt == huidigeSpeler)
                 return false;
 
-            if (spelerIt == Spel.Speler.Speler1)
-                kuiltje = bord.s2Kuiltjes[kuiltjeIt - 1];
-            else
-                kuiltje = bord.s1Kuiltjes[kuiltjeIt - 1];
-
             //Kuiltje van de tegenstander is leeg
-            if (kuiltje.GetAantalSteentjes() == 0)
+            if (laatsteKuiltje.GetAantalSteentjes() == 0)
                 return true;
             else
                 return false;

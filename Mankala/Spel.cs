@@ -17,7 +17,7 @@ namespace Mankala
         protected int beurtNummer;
 
         protected List<Regel> regels;
-        public enum ZetResultaat { Niets, PakStenenVoorThuiskuiltje, VerderSpelen, VolgendeSpeler, PakStenenTegenOverThuis, DoorSpreiden }
+        public enum ZetResultaat { Niets, PakStenenVoorThuiskuiltje, VerderSpelen, VolgendeSpeler, PakStenenTegenover, DoorSpreiden }
 
 
         public void InitialiseerSpel(int aantalKuiltjes, int aantalSteentjes, bool thuisSpreiden)
@@ -83,7 +83,7 @@ namespace Mankala
                     case ZetResultaat.VolgendeSpeler:
                         volgendeSpeler = NextSpeler(huidigeSpeler);
                         break;
-                    case ZetResultaat.PakStenenTegenOverThuis:
+                    case ZetResultaat.PakStenenTegenover:
                         bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, laatsteKuiltje);
                         bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, bord.getTegenover(kuiltjeIt, huidigeSpeler));
                         break;

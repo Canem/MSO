@@ -10,25 +10,15 @@ namespace Mankala
     {
         public R_GevuldKuiltje()
         {
-            naam = "gevuld kuiltje";
+            naam = "gevuld kuiltje.";
             this.zetResultaten.Add(Spel.ZetResultaat.DoorSpreiden);
         }
 
+        // Check of het laatste steentje in een kuiltje terecht is gekomen dat niet leeg is.
+        // Verder wordt gecheckt of dit geen thuiskuiltje is om niet te clashen met de thuiskuiltje regel.
         public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
-            Kuiltje kuiltje;
-
-            //Steentje niet in een van eigenkuiltjes gekomen
-            if (spelerIt != huidigeSpeler)
-                return false;
-
-            if (spelerIt == Spel.Speler.Speler1)
-                kuiltje = bord.s1Kuiltjes[kuiltjeIt - 1];
-            else
-                kuiltje = bord.s2Kuiltjes[kuiltjeIt - 1];
-
-            //Als eigenkuiltje niet leeg is ga door
-            if (kuiltje.GetAantalSteentjes() != 0)
+            if (laatsteKuiltje.GetAantalSteentjes() != 0 && !laatsteKuiltje.isThuisKuiltje)
                 return true;
             else
                 return false;
