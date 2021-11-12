@@ -69,5 +69,26 @@ namespace Mankala
                 return VraagGetal(lower, upper);
             }
         }
+
+        public static void VraagRematch()
+        {
+            Console.WriteLine("\nWil je nog een potje spelen? [j]a of [n]ee?");
+            char input = (char)Console.ReadLine()[0];
+            if(input == 'j')
+            {
+                Console.WriteLine("Het spel wordt herstart...\n\n");
+                SpelInitialisatie();
+            }
+            else if(input == 'n')
+            {
+                Console.WriteLine("Tot ziens!");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Toets [j]a of [n]ee in a.u.b.");
+                VraagRematch();
+            }
+        }
     }
 }

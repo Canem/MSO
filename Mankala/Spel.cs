@@ -43,8 +43,7 @@ namespace Mankala
 
             if (huidigeVariant.IsFinished(bord, huidigeSpeler))
             {
-                Console.WriteLine("De Winnaar is: " + GetWinnaar());
-                Console.ReadLine();
+                EindigSpel();
             }
 
             Console.WriteLine("\n" + huidigeSpeler + " is aan zet." + "\nKies een kuiltje.");
@@ -144,15 +143,19 @@ namespace Mankala
             return zetActies;
         }   
         
-        private Speler GetWinnaar()
+        private void EindigSpel()
         {
             int s1Punten = bord.s1VerzamelKuiltje.GetAantalSteentjes();
             int s2Punten = bord.s2VerzamelKuiltje.GetAantalSteentjes();
 
             if (s1Punten > s2Punten)
-                return Speler.Speler1;
+                Console.WriteLine("Speler 1 is de winnaar!");
+            else if (s2Punten > s1Punten)
+                Console.WriteLine("Speler 2 is de winnaar!");
             else
-                return Speler.Speler2;
+                Console.WriteLine("Het is een gelijk spel!");
+
+            Program.VraagRematch();
         }
     }
 }
