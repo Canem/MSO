@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Mankala
 {
-    class EigenLeegTegenNiet : Regel
+    class R_LeegEigenTegenoverGevuld : Regel
     {
-        public EigenLeegTegenNiet()
+        public R_LeegEigenTegenoverGevuld()
         {
+            naam = "leeg eigen kuiltje tegenover gevuld kuiltje tegenstander.";
             this.zetResultaten.Add(Spel.ZetResultaat.PakStenenTegenOverThuis);
             this.zetResultaten.Add(Spel.ZetResultaat.VolgendeSpeler);
         }

@@ -6,28 +6,29 @@ using System.Threading.Tasks;
 
 namespace Mankala
 {
-    class EigenKuiltjeNietLeeg : Regel
+    class R_LeegKuiltjeTegenstander : Regel
     {
-        public EigenKuiltjeNietLeeg()
+        public R_LeegKuiltjeTegenstander()
         {
-            this.zetResultaten.Add(Spel.ZetResultaat.DoorSpreiden);
+            naam = "leeg kuiltje tegenstander.";
+            this.zetResultaten.Add(Spel.ZetResultaat.VolgendeSpeler);
         }
 
         public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
             Kuiltje kuiltje;
 
-            //Steentje niet in een van eigenkuiltjes gekomen
-            if (spelerIt != huidigeSpeler)
+            //In eigenkuiltje gekomen
+            if (spelerIt == huidigeSpeler)
                 return false;
 
             if (spelerIt == Spel.Speler.Speler1)
-                kuiltje = bord.s1Kuiltjes[kuiltjeIt - 1];
-            else
                 kuiltje = bord.s2Kuiltjes[kuiltjeIt - 1];
+            else
+                kuiltje = bord.s1Kuiltjes[kuiltjeIt - 1];
 
-            //Als eigenkuiltje niet leeg is ga door
-            if (kuiltje.GetAantalSteentjes() != 0)
+            //Kuiltje van de tegenstander is leeg
+            if (kuiltje.GetAantalSteentjes() == 0)
                 return true;
             else
                 return false;

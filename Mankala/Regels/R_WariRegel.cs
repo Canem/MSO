@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Mankala
 {
-    class WariRegel : Regel
+    class R_WariRegel : Regel
     {
-        public WariRegel()
+        public R_WariRegel()
         {
+            naam = "kuiltje tegenstander met 1 of 2 andere steentjes.";
             this.zetResultaten.Add(Spel.ZetResultaat.PakStenenVoorThuiskuiltje);
             this.zetResultaten.Add(Spel.ZetResultaat.VolgendeSpeler);
         }

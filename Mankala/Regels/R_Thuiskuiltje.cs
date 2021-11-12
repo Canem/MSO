@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Mankala
 {
-    class ThuisKeultje : Regel
+    class R_Thuiskuiltje : Regel
     {
-        public ThuisKeultje()
+        public R_Thuiskuiltje()
         {
+            naam = "thuiskuiltje.";
             this.zetResultaten.Add(Spel.ZetResultaat.VerderSpelen);
         }
 

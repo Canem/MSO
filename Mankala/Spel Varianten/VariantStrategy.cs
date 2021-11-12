@@ -22,14 +22,14 @@ namespace Mankala
             {
                 case 'M':
                     spel.huidigeVariant = new Mankala();
-                    regels.Add(new EigenKuiltjeNietLeeg());
-                    regels.Add(new LeegKuiltjeTegenstander());
-                    regels.Add(new EigenEnTegenoverLeeg());
-                    regels.Add(new EigenLeegTegenNiet());
+                    regels.Add(new R_GevuldKuiltje());
+                    regels.Add(new R_LeegKuiltjeTegenstander());
+                    regels.Add(new R_LeegEigenTegenoverLeeg());
+                    regels.Add(new R_LeegEigenTegenoverGevuld());
                     break;
                 case 'W':
                     spel.huidigeVariant = new Wari();
-                    regels.Add(new WariRegel());
+                    regels.Add(new R_WariRegel());
                     break;
                 default:
                     break;

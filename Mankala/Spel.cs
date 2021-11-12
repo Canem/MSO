@@ -94,7 +94,7 @@ namespace Mankala
                         break;
                 }
             }
-            Console.WriteLine("\nLaatste steen eindigde in " + spelerIt + ".");
+            // Console.WriteLine("\nLaatste steen eindigde in " + spelerIt + ".");
             beurtNummer++;
 
             huidigeSpeler = volgendeSpeler;
@@ -130,8 +130,12 @@ namespace Mankala
             foreach (Regel regel in regels)
             {
                 if (regel.CheckTrigger(bord, spelerIt, kuiltjeIt, huidigeSpeler, laatsteKuiltje))
+                {
+                    Console.WriteLine("Laatste steen eindigde in " + regel.naam);
                     foreach (ZetResultaat zetResultaat in regel.zetResultaten)
                         zetActies.Add(zetResultaat);
+                }
+                    
             }
 
             if (zetActies.Count == 0)
