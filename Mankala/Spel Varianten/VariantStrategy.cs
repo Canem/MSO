@@ -26,6 +26,7 @@ namespace Mankala
                     regels.Add(new R_LeegKuiltjeTegenstander());
                     regels.Add(new R_LeegEigenTegenoverLeeg());
                     regels.Add(new R_LeegEigenTegenoverGevuld());
+                    regels.Add(new R_Thuiskuiltje());
                     break;
                 case 'W':
                     spel.huidigeVariant = new Wari();

@@ -42,38 +42,21 @@ namespace Mankala
             bord.PrintBord(huidigeSpeler);
 
             if (huidigeVariant.IsFinished(bord, huidigeSpeler))
-            {
                 EindigSpel();
-            }
 
             Program.ui.GeefWeer("\n" + huidigeSpeler + " is aan zet." + "\nKies een kuiltje.");
             Kuiltje laatsteKuiltje = Zet();
 
-            // Verkrijg het kuiltjeNummer en bij welke speler het laatste kuiltje behoort.
-            Speler spelerIt = Speler.Speler1;
-            int kuiltjeIt = 0;
-
-            for (int i = 1; i <= bord.s1Kuiltjes.Length; i++)
-            {
-                if (laatsteKuiltje.Equals(bord.s1Kuiltjes[i - 1]) || laatsteKuiltje.Equals(bord.s1VerzamelKuiltje))
-                {
-                    spelerIt = Speler.Speler1;
-                    kuiltjeIt = i;
-                }
-                else if (laatsteKuiltje.Equals(bord.s2Kuiltjes[i - 1]) || laatsteKuiltje.Equals(bord.s2VerzamelKuiltje))
-                {
-                    spelerIt = Speler.Speler2;
-                    kuiltjeIt = i;
-                }
-            }
-
-            List<ZetResultaat> zetActies = CheckRegels(spelerIt, kuiltjeIt, huidigeSpeler, laatsteKuiltje);
-            VoerZetActiesUit();
+            List<ZetResultaat> zetResultaten = CheckRegels(huidigeSpeler, laatsteKuiltje);
+            VoerZetResultatenUit();
 
             // Gaat de lijst met zet acties langs en voert deze uit.
-            void VoerZetActiesUit()
+            void VoerZetResultatenUit()
             {
-                foreach (ZetResultaat actie in zetActies)
+                Speler spelerIt = bord.GetSpelerIt(laatsteKuiltje);
+                int kuiltjeIt = bord.GetKuiltjeIt(laatsteKuiltje);
+
+                foreach (ZetResultaat actie in zetResultaten)
                 {
                     switch (actie)
                     {
@@ -91,7 +74,7 @@ namespace Mankala
                             bord.PaktStenenVoorThuisKuiltje(huidigeSpeler, bord.getTegenover(kuiltjeIt, huidigeSpeler));
                             break;
                         case ZetResultaat.DoorSpreiden:
-                            Zet(false, kuiltjeIt);
+                            bord.BlijfSpreiden(spelerIt, kuiltjeIt, huidigeSpeler);
                             break;
                         case ZetResultaat.Niets:
                             break;
@@ -125,23 +108,26 @@ namespace Mankala
                 return laatsteKuiltje;
         }
 
-        protected List<ZetResultaat> CheckRegels(Speler spelerIt, int kuiltjeIt, Speler huidigeSpeler, Kuiltje laatsteKuiltje)
+        protected List<ZetResultaat> CheckRegels(Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
-            List<ZetResultaat> zetActies = new List<ZetResultaat>();
+            Speler spelerIt = bord.GetSpelerIt(laatsteKuiltje);
+            int kuiltjeIt = bord.GetKuiltjeIt(laatsteKuiltje);
+
+            List<ZetResultaat> zetResultaten = new List<ZetResultaat>();
             foreach (Regel regel in regels)
             {
                 if (regel.CheckTrigger(bord, spelerIt, kuiltjeIt, huidigeSpeler, laatsteKuiltje))
                 {
                     Program.ui.GeefWeer("Laatste steen eindigde in " + regel.naam);
                     foreach (ZetResultaat zetResultaat in regel.zetResultaten)
-                        zetActies.Add(zetResultaat);
+                        zetResultaten.Add(zetResultaat);
                 }
             }
 
-            if (zetActies.Count == 0)
-                zetActies.Add(ZetResultaat.VolgendeSpeler);
+            if (zetResultaten.Count == 0)
+                zetResultaten.Add(ZetResultaat.VolgendeSpeler);
 
-            return zetActies;
+            return zetResultaten;
         }
 
         private void EindigSpel()

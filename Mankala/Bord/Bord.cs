@@ -46,6 +46,7 @@ namespace Mankala
             this.spreidThuisKuil = spreidThuisKuil;
         }
 
+        // Output de weergave van het bord.
         public void PrintBord(Spel.Speler huidigeSpeler)
         {
             // Print kuiltje info.
@@ -89,22 +90,27 @@ namespace Mankala
         public Kuiltje Zet(Spel.Speler huidigeSpeler, int kuiltjeNummer)
         {
             if (IsZetValide(huidigeSpeler, kuiltjeNummer) == false)
-            {
                 return null;
-            }
 
-            int huidigeSteentjes;
             int kuiltjeIt = kuiltjeNummer;
             Spel.Speler spelerIt = huidigeSpeler;
 
+            Kuiltje laatsteKuiltje = SpreidSteentjes(spelerIt, kuiltjeIt);
+
+            Program.ui.GeefWeer("Geldige zet - Het bord wordt geupdate.");
+            return laatsteKuiltje;
+        }
+
+        protected Kuiltje SpreidSteentjes(Spel.Speler spelerIt, int kuiltjeIt)
+        {
+            Kuiltje laatsteKuiltje = null;
+
             // Krijg aantal steentjes
+            int huidigeSteentjes;
             if (spelerIt == Spel.Speler.Speler1)
                 huidigeSteentjes = s1Kuiltjes[kuiltjeIt - 1].Leeg();
             else
                 huidigeSteentjes = s2Kuiltjes[kuiltjeIt - 1].Leeg();
-
-
-            Kuiltje laatsteKuiltje = s1Kuiltjes[kuiltjeIt - 1];
 
             // Spreid steentjes
             while (huidigeSteentjes > 0)
@@ -117,11 +123,12 @@ namespace Mankala
                 // Als kuiltje iteratie te hoog is, wissel speler iteratie. [van rechtsonder naar rechtsboven schuiven]
                 if (kuiltjeIt > s1Kuiltjes.Length)
                 {
-                    if(!spreidThuisKuil)
+                    if (!spreidThuisKuil)
                     {
                         spelerIt = Spel.Speler.Speler2;
                         kuiltjeIt--;
-                    } else
+                    }
+                    else
                     {
                         spelerIt = Spel.Speler.Speler2;
                         s1VerzamelKuiltje.VoegToe(1);
@@ -129,17 +136,17 @@ namespace Mankala
                         laatsteKuiltje = s1VerzamelKuiltje;
                         continue;
                     }
-                    
                 }
 
                 // Als kuiltje iteratie te laag is wissel speler iteratie. [van linksboven naar linksonder schuiven]
                 if (kuiltjeIt == 0)
                 {
-                    if(!spreidThuisKuil)
+                    if (!spreidThuisKuil)
                     {
                         spelerIt = Spel.Speler.Speler1;
                         kuiltjeIt++;
-                    } else
+                    }
+                    else
                     {
                         spelerIt = Spel.Speler.Speler1;
                         s2VerzamelKuiltje.VoegToe(1);
@@ -154,7 +161,8 @@ namespace Mankala
                 {
                     s1Kuiltjes[kuiltjeIt - 1].VoegToe(1);
                     laatsteKuiltje = s1Kuiltjes[kuiltjeIt - 1];
-                } else
+                }
+                else
                 {
                     s2Kuiltjes[kuiltjeIt - 1].VoegToe(1);
                     laatsteKuiltje = s2Kuiltjes[kuiltjeIt - 1];
@@ -162,10 +170,6 @@ namespace Mankala
 
                 huidigeSteentjes--;
             }
-
-            Program.ui.GeefWeer("Geldige zet - Het bord wordt geupdate.");
-
-            // Return het laatste kuiltje.
             return laatsteKuiltje;
         }
 
@@ -228,6 +232,37 @@ namespace Mankala
                 else
                     s2Kuiltjes[0].VoegToe(aantalSteentjes);
             }  
+        }
+
+        public void BlijfSpreiden(Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler)
+        {
+            PrintBord(huidigeSpeler);
+            Program.ui.GeefWeer("Het spreiden gaat door. Klik op 'enter' om door te gaan.");
+            Program.ui.VraagInput();
+            Kuiltje laatsteKuiltje = SpreidSteentjes(spelerIt, kuiltjeIt);
+            if (laatsteKuiltje.GetAantalSteentjes() >1 && !laatsteKuiltje.isThuisKuiltje)
+                BlijfSpreiden(GetSpelerIt(laatsteKuiltje), GetKuiltjeIt(laatsteKuiltje), huidigeSpeler);
+        }
+
+
+        public Spel.Speler GetSpelerIt(Kuiltje kuiltje)
+        {
+            for (int i = 1; i <= s1Kuiltjes.Length; i++)
+                if (kuiltje.Equals(s1Kuiltjes[i - 1]))
+                {
+                    return Spel.Speler.Speler1;
+                }
+            return Spel.Speler.Speler2;
+        }
+
+        public int GetKuiltjeIt(Kuiltje kuiltje)
+        {
+            for (int i = 1; i <= s1Kuiltjes.Length; i++)
+                if (kuiltje.Equals(s1Kuiltjes[i - 1]) || kuiltje.Equals(s2Kuiltjes[i - 1]))
+                {
+                    return i;
+                }
+            return 0;
         }
     }
 }
