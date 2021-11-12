@@ -193,18 +193,24 @@ namespace Mankala
             return true;
         }
 
+        public Kuiltje getTegenover(int kuiltjeIt, Spel.Speler s)
+        {
+            Kuiltje tegenover;
+            if(s == Spel.Speler.Speler1)
+                tegenover = s2Kuiltjes[kuiltjeIt - 1];
+            else
+                tegenover = s1Kuiltjes[kuiltjeIt - 1];
+
+            return tegenover;
+        }
+
         public void PaktStenenVoorThuisKuiltje(Spel.Speler huidigeSpeler, Kuiltje kuiltje)
         {
             int aantalSteentjes = kuiltje.Leeg();
             VulThuisKuiltje(huidigeSpeler, aantalSteentjes);
         }
 
-        public void VerderSpelen(Spel.Speler huidigeSpeler, int kuiltjeNummer)
-        {
-            Zet(huidigeSpeler, kuiltjeNummer);
-        }
-
-        public void VulThuisKuiltje(Spel.Speler huidigeSpeler, int aantalSteentjes)
+        private void VulThuisKuiltje(Spel.Speler huidigeSpeler, int aantalSteentjes)
         {
             if(huidigeSpeler == Spel.Speler.Speler1)
             {
@@ -219,8 +225,9 @@ namespace Mankala
                     s2VerzamelKuiltje.VoegToe(aantalSteentjes);
                 else
                     s2Kuiltjes[0].VoegToe(aantalSteentjes);
-            }
-                
+            }  
         }
+
+       
     }
 }

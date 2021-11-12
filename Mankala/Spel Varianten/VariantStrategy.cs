@@ -21,14 +21,14 @@ namespace Mankala
             switch (v)
             {
                 case 'M':
-                    spel.huidigeVariant = Spel.SpelVariant.Mankala;
+                    spel.huidigeVariant = new Mankala();
                     regels.Add(new EigenKuiltjeNietLeeg());
                     regels.Add(new LeegKuiltjeTegenstander());
                     regels.Add(new EigenEnTegenoverLeeg());
                     regels.Add(new EigenLeegTegenNiet());
                     break;
                 case 'W':
-                    spel.huidigeVariant = Spel.SpelVariant.Wari;
+                    spel.huidigeVariant = new Wari();
                     regels.Add(new WariRegel());
                     break;
                 default:

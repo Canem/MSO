@@ -9,6 +9,6 @@ namespace Mankala
     abstract class Regel
     {
         public List<Spel.ZetResultaat> zetResultaten = new List<Spel.ZetResultaat>();
-        public abstract bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler);
+        public abstract bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje);
     }
 }

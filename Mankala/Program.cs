@@ -27,7 +27,7 @@ namespace Mankala
             Console.WriteLine("Toets in als getal hoeveel steentjes ieder kuiltje bevat. Min 1, max 9.");
             int aantalSteentjes = VraagGetal(1, 9);
 
-            spel.InitialiseerSpel(aantalKuiltjes, aantalSteentjes);
+            spel.InitialiseerSpel(aantalKuiltjes, aantalSteentjes, spel.huidigeVariant.getThuisKuiltjeRegel());
         }
 
         protected static void InitialiseerVariant()
@@ -49,7 +49,7 @@ namespace Mankala
             VariantStrategy variant = new VariantStrategy();
             spel = variant.CreeerSpel(variantInput);
 
-            Console.WriteLine("Je hebt gekozen voor " + spel.huidigeVariant);
+            Console.WriteLine("Je hebt gekozen voor " + spel.huidigeVariant.getNaam());
         }
 
         public static int VraagGetal(int lower, int upper)

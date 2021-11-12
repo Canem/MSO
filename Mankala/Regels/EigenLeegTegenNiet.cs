@@ -10,10 +10,11 @@ namespace Mankala
     {
         public EigenLeegTegenNiet()
         {
-            this.zetResultaten.Add(Spel.ZetResultaat.PakStenenVoorThuiskuiltje);
+            this.zetResultaten.Add(Spel.ZetResultaat.PakStenenTegenOverThuis);
+            this.zetResultaten.Add(Spel.ZetResultaat.VolgendeSpeler);
         }
 
-        public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler)
+        public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
             Kuiltje kuiltjeEigen;
             Kuiltje kuiltjeTegen;

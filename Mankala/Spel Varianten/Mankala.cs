@@ -8,13 +8,18 @@ namespace Mankala
 {
     class Mankala : SpelVariant
     {
-        public static string naam = "Mankala";
-        private static bool thuisKuiltjeSpreiden = true;
+        private static readonly string Naam = "Mankala";
+        private static readonly bool ThuisKuiltjeSpreiden = true;
         public bool Finished(Bord bord, Spel.Speler huidigeSpeler) { return base.IsFinished(bord, huidigeSpeler); }
 
         public override bool getThuisKuiltjeRegel()
         {
-            return thuisKuiltjeSpreiden;
+            return ThuisKuiltjeSpreiden;
+        }
+
+        public override string getNaam()
+        {
+            return Naam;
         }
     }
 }

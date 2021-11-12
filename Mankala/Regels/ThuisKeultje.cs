@@ -13,9 +13,14 @@ namespace Mankala
             this.zetResultaten.Add(Spel.ZetResultaat.VerderSpelen);
         }
 
-        public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler)
+        public override bool CheckTrigger(Bord bord, Spel.Speler spelerIt, int kuiltjeIt, Spel.Speler huidigeSpeler, Kuiltje laatsteKuiltje)
         {
-            throw new NotImplementedException();
+            if((huidigeSpeler == Spel.Speler.Speler1 && laatsteKuiltje.Equals(bord.s1VerzamelKuiltje)) 
+                || (huidigeSpeler == Spel.Speler.Speler2 && laatsteKuiltje.Equals(bord.s2VerzamelKuiltje)))
+            {
+                return true;
+            } else
+                return false;
         }
     }
 }

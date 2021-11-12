@@ -8,12 +8,17 @@ namespace Mankala
 {
     class Wari : SpelVariant
     {
-        public static string naam = "Wari";
-        private static bool thuisKuiltjeSpreiden = false;
+        public static string Naam = "Wari";
+        private static readonly bool ThuisKuiltjeSpreiden = false;
 
         public override bool getThuisKuiltjeRegel()
         {
-            return thuisKuiltjeSpreiden;
+            return ThuisKuiltjeSpreiden;
+        }
+
+        public override string getNaam()
+        {
+            return Naam;
         }
 
         public bool Finished(Bord bord, Spel.Speler huidigeSpeler) { return base.IsFinished(bord, huidigeSpeler); }
